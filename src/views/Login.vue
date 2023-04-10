@@ -18,7 +18,17 @@
                     <label for="senha">senha</label>
                     <input type="password" placeholder="******" class="input" v-model="password">
                     <hr>
-                    <button class="button is-success" @click="login">Logar</button>
+                    
+                    <div class="buttons">
+                        <a class="button is-primary">
+                            <router-link to="login" @click="login">Logar</router-link>
+                        </a>
+                        <a class="button is-primary">
+                            <router-link to="register">Registro</router-link> 
+                        </a>
+                        
+                        
+                    </div>
                 </div>
             </div>
             
@@ -60,5 +70,6 @@ export default {
 </script>
 
 <style>
+
 
 </style>
