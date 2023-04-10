@@ -22,71 +22,82 @@
         <div class="row g-3">
           <div class="col">
             <label>Nome da Mãe</label>
-            <input class="form-control" type="number" placeholder="Nome da Mãe" v-model="criancasMenor6Meses">
+            <input class="form-control" type="text" placeholder="Nome da Mãe" maxlength="150" v-model="nomedamae">
           </div>
+          <div class="col">
+            <label>Endereço</label>
+            <input class="form-control" type="text" placeholder="Endereço" maxlength="150" v-model="endereco">
+          </div>
+
+          <div class="col"> 
+            <label>Municipio de Residência</label>
+            <input class="form-control" type="text" placeholder="Municipio de Residência" maxlength="50" v-model="municipioderesidencia">
+          </div>
+
+          
+        </div>
+        <div class="row g-3">
 
           <div class="col">
             <label>Idade</label>
-            <input class="form-control" type="number" placeholder="Idade" v-model="criancaAme">
-          </div>
-
-          <div class="col">
-            <label>Endereço</label>
-            <input class="form-control" type="number" placeholder="Endereço" v-model="criancas2Anos">
-          </div>
-        </div>
-        <div class="row g-3">
-          <div class="col"> 
-            <label>Municipio de Residência</label>
-            <input class="form-control" type="number" placeholder="Crianças < 6 Meses" v-model="gestantes">
+            <input class="form-control" type="text" placeholder="Idade" maxlength="2" v-model="idade">
           </div>
 
           <div class="col"> 
-            <label>Sexo</label>
-            <input class="form-control" type="number" placeholder="Crianças < 6 Meses" v-model="gestantesAte20Anos">
-          </div>
-        </div>
-        <div class="row g-3">
-
-          <div class="col">
             <label>Peso</label>
-            <input class="form-control" type="number" placeholder="Crianças < 6 Meses" v-model="familias">
+            <input class="form-control" type="text" placeholder="Ex: 3.560" maxlength="5" step="0.01" v-model="peso">
           </div>
 
-          <div class="col">  
+          <div class="col"> 
             <label>Data de Nascimento</label>
-            <input class="form-control" type="number" placeholder="Crianças < 6 Meses" v-model="familiasAcompanhada">
+            <input class="form-control" type="date" placeholder="Data de nascimento" v-model="datadenascimento">
           </div>
+        </div>
 
+
+        <div class="row g-3">
           <div class="col">  
-            <label>Hospitilar ou Domiciliar</label>
-            <input class="form-control" type="number" placeholder="Crianças < 6 Meses" v-model="familiasAcompanhada">
+            <select class="form-select" size="1" aria-label="size 1 select example" v-model="sexo">
+                <option selected>Sexo</option>
+                <option value="Masculino">Masculino</option>
+                <option value="Feminino">Feminino</option>              
+              </select>
           </div>
           <div class="col">  
-            <label>Municipio de Ocorrencia</label>
-            <input class="form-control" type="number" placeholder="Crianças < 6 Meses" v-model="familiasAcompanhada">
+            <select class="form-select" size="1" aria-label="size 2 select example" v-model="tipodeparto">
+              <option selected>Tipo de parto</option>
+                <option value="Normal">Normal</option>
+                <option value="Cesario">Cesario</option>              
+              </select>
           </div>
           <div class="col">  
-            <label>Tipo de parto</label>
-            <input class="form-control" type="number" placeholder="Crianças < 6 Meses" v-model="familiasAcompanhada">
+            <select class="form-select" size="1" aria-label="size 2 select example" >
+                
+                <option selected value="Hospitalar">Hospitalar</option>
+                <option value="Domiciliar">Domiciliar</option>              
+              </select>
           </div>
           
         </div>
-          
+        <hr>
+        <!-- /////////////////// -->
+
+
+
+        
+        <br>   
       </form>  
       <div class="enviar">
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="gridCheck">
-          <label class="form-check-label" for="gridCheck">
-            Marque
-          </label>
-        </div>
+
         <button class="btn btn-primary" @click="cadastrarnascidosvivos">Cadastrar</button>
         <!-- <small id="nome-erro" v-show="deuErro"> Nome invalido tente novamente</small> -->
       </div>
       <hr>
       
     </div>
+    
+
+    
 </template>
 
 <script>
@@ -96,29 +107,36 @@ export default {
         return{
             ubs:"",
             nome:"",
-            criancasMenor6Meses:0,
-            criancaAme:0,
-            criancas2Anos:0,
-            gestantes: 0,
-            gestantesAte20Anos:0,
-            familias:0,
-            familiasAcompanhada:0,
+            nomedamae:"",
+            idade:0,
+            endereco:"",
+            municipioderesidencia: "",
+            sexo:"",
+            peso:0,
+            datadenascimento:0,
+            tipodeparto:"",
+            localdeparto:"",
+            
+
             
         }
     },
     methods:{
         
       cadastrarnascidosvivos(){
-        axios.post("http://localhost:8686/ssa2",{
+        axios.post("http://localhost:8686/Nascidosvivos",{
             ubs: this.ubs,
             nome: this.nome,
-            criancasMenor6Meses: this.criancasMenor6Meses,
-            criancaAme: this.criancaAme,
-            criancas2Anos:this.criancas2Anos,
-            gestantes: this.gestantes,
-            gestantesAte20Anos:this.gestantesAte20Anos,
-            familias:this.familias,
-            familiasAcompanhada:this.familiasAcompanhada,
+            nomedamae: this.nomedamae,
+            idade: this.idade,
+            endereco: this.endereco,
+            municipioderesidencia:this.municipioderesidencia,
+            sexo: this.sexo, 
+            peso: this.peso,
+            datadenascimento: this.datadenascimento,
+            tipodeparto: this.tipodeparto,
+            localdeparto: this.localdeparto,
+
             
             
         }).then(res =>{
