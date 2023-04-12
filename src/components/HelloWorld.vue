@@ -1,18 +1,9 @@
 <template>
+
+
   <div class="hello">
     
-    
-    <router-link to="/ssa2"><button class="button is-primary is-rounded">SSA2</button></router-link> 
-    <br>
-    <br>    
-    <router-link to="/nascidosvivos"><button class="button is-primary is-rounded">Nascidos Vivos</button></router-link>
-    <br>
-    <br>    
-    <router-link to="/obitos"><button class="button is-primary is-rounded">Obitos</button></router-link>
-    <br>
-    <br>
-
-
+  
   </div>
 </template>
 
@@ -28,7 +19,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 h3 {
-  margin: 40px 0 0;
+  margin: 0px 0 0;
 }
 ul {
   list-style-type: none;

@@ -1,6 +1,7 @@
 <template>
   
     <div class="container"> 
+      <div class="main">
       <h1>Nascidos Vivos</h1>
       <br>
       <form class="row g-3">
@@ -77,23 +78,17 @@
                 <option value="Domiciliar">Domiciliar</option>              
               </select>
           </div>
-          
         </div>
-        <hr>
-        <!-- /////////////////// -->
-
-
-
-        
-        <br>   
       </form>  
+      <br>
+      <br>
+      <br>
+      <br>
       <div class="enviar">
-
         <button class="btn btn-primary" @click="cadastrarnascidosvivos">Cadastrar</button>
         <!-- <small id="nome-erro" v-show="deuErro"> Nome invalido tente novamente</small> -->
       </div>
-      <hr>
-      
+    </div>
     </div>
     
 

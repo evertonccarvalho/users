@@ -1,10 +1,11 @@
 <template>
   
     <div class="container"> 
+      <div class="main">
       <h1>SSA2</h1>
       <br>
       <form class="row g-3">
-        <div class="col">
+        <div class="col tex">
           <input type="text" class="form-control" placeholder="Responsavel" aria-label="Responsavel" v-model="nome">
         </div>
         <div class="col">          
@@ -60,25 +61,25 @@
           
         </div>
           
-      </form>  
+      </form> 
+      <br>
+      <br>
+      <br> 
       <div class="enviar">
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="gridCheck">
-          <label class="form-check-label" for="gridCheck">
-            Marque
-          </label>
-        </div>
         <button class="btn btn-primary" @click="cadastrarssa2">Cadastrar</button>
         <!-- <small id="nome-erro" v-show="deuErro"> Nome invalido tente novamente</small> -->
-      </div>
-      <hr>
-      
+      </div> 
+    </div>     
     </div>
+  
+    
+
 </template>
 
 <script>
 import axios from 'axios';
 export default {
+  
     data(){
         return{
             ubs:"",
@@ -121,8 +122,12 @@ export default {
     }
 
 }
+
 </script>
 
-<style>
+<style scoped>
+
+
+
 
 </style>

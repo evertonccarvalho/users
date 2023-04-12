@@ -1,6 +1,8 @@
-<template>
+<template>   
 
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+ 
+      <HelloWorld msg="Welcome to Your Vue.js App"/>
+
 
 </template>
 

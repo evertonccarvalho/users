@@ -1,62 +1,74 @@
 <template>
-  <div>
 
-    <h1 class="title">Paindel Administrativo</h1>
-  <div class="content">  
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Nome</th>
-          <th>E-mail</th>
-          <th>Cargo</th>
-          <th>Ações</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="user in users" :key="user.id">
-          <td>{{user.name}}</td>
-          <td>{{user.email}}</td>
-          <td>{{ processRole }}</td>
-          <td>
-              <router-link :to="{name:'UserEdit',params:{id: user.id}}">
-              <button class="button is-success" @click="update">Editar</button></router-link>
-              <button class="button is-danger" @click="showModalUser(user.id)">Deletar</button></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>  
-    <div :class="{modal: true, 'is-active': showModal}">
-      <div class="modal-background"></div>
-      <div class="modal-content">
-        
-        
-        <div class="card">
-          <header class="card-header">
-            <p class="card-header-title">
-              Você quer realmente delete ese usuário?
-            </p>
 
-          </header>
-          <div class="card-content">
-            <div class="content">
-              <p>Essa operação não pode ser reversivel!</p>
-            </div>
-          </div>
-          <footer class="card-footer">
-            <a href="#" class="card-footer-item" @click="deleteUser">Sim, quero deletar!</a>
-            <a href="#" class="card-footer-item" @click="hideModal()">Cancelar</a>
+
+
+
+  <div class="container">
+    <div class="main">
+      <div>
+
+        <h1 class="admintitle">Paindel Administrativo</h1>
+        <br>
+      <div class="content">  
+        <table class="table">
+          <thead>
+            <tr>
+              <th>id</th>
+              <th>Nome</th>
+              <th>E-mail</th>
+              <th>Cargo</th>
+              
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="user in users" :key="user.id">
+              <td>{{ user.id }}</td>
+              <td>{{user.name}}</td>
+              <td>{{user.email}}</td>
+              <td>{{ user.role }}</td>          
+              <td>
+                  <router-link :to="{name:'UserEdit',params:{id: user.id}}">
+                  <button class="button is-success" @click="update">Editar</button></router-link>
+                  <button class="button is-danger" @click="showModalUser(user.id)">Deletar</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>  
+        <div :class="{modal: true, 'is-active': showModal}">
+          <div class="modal-background"></div>
+          <div class="modal-content">
             
-          </footer>
+            
+            <div class="card">
+              <header class="card-header">
+                <p class="card-header-title">
+                  Você quer realmente delete ese usuário?
+                </p>
+
+              </header>
+              <div class="card-content">
+                <div class="content">
+                  <p>Essa operação não pode ser reversivel!</p>
+                </div>
+              </div>
+              <footer class="card-footer">
+                <a href="#" class="card-footer-item" @click="deleteUser">Sim, quero deletar!</a>
+                <a href="#" class="card-footer-item" @click="hideModal()">Cancelar</a>
+                
+              </footer>
+            </div>
+
+
+
+
+          </div>
+          <button class="modal-close is-large" aria-label="close" @click="hideModal()"></button>
         </div>
 
 
-
-
       </div>
-      <button class="modal-close is-large" aria-label="close" @click="hideModal()"></button>
     </div>
-
-
   </div>
 </template>
 
@@ -126,5 +138,6 @@ export default {
 </script>
 
 <style sooped>
+
 
 </style>

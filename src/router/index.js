@@ -7,6 +7,9 @@ import axios from 'axios'
 import Edit from '../views/Edit.vue'
 import Ssa2 from '../components/Ssa2.vue'
 import NascidosVIvos from '../components/NascidosVivos.vue'
+import Obitos from '../components/Obitos.vue'
+
+
 
 function AdminAuth(to, from, next){
   if(localStorage.getItem('token') != undefined){
@@ -36,14 +39,7 @@ const routes = [
     name: 'home',
     component: HomeView
   },
-  {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  },
+  
   {
     path: '/register',
     name: 'Register',
@@ -76,6 +72,12 @@ const routes = [
     name: 'nascidosvivos',
     component: NascidosVIvos
     },
+    {
+      path: '/Obitos',
+      name: 'obitos',
+      component: Obitos
+    },
+
 ]
 
 const router = createRouter({

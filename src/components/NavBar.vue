@@ -1,81 +1,72 @@
 <template>
-  <nav class="navbar" role="navigation" aria-label="main navigation">
-  <div class="navbar-brand">
-
-    <a class="navbar-item" href="/">
-      
-      <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
-    </a>
-
-    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-    </a>
-  </div>
-
-  <div id="navbarBasicExample" class="navbar-menu">
-    <div class="navbar-start">
-      <a class="navbar-item">
-        <router-link to="/">Home</router-link> 
-      </a>
-
-      <a class="navbar-item">
-        ??
-      </a>
-
-      <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link">
-          Formulários
-        </a>
-
-        <div class="navbar-dropdown">
-          <a class="navbar-item">
-            SSA2
-          </a>
-          <a class="navbar-item">
-            Nascidos Vivos
-          </a>
-          <a class="navbar-item">
-            Obitos
-          </a>
-          <!-- <hr class="navbar-divider">
-          <a class="navbar-item">
-            Report an issue
-          </a> -->
-        </div>
+<nav class="navbar bg-body-tertiary fixed-top" data-bs-theme="dark">
+  <div class="container-fluid">
+    <br>
+    <ul class="nav nav-tabs card-header-tabs">
+      <li class="nav-item">
+        <router-link to="/ssa2"><a class="nav-link" aria-current="true" href="#">SSA2</a></router-link>
+      </li>
+      <li class="nav-item">
+        <router-link to="/nascidosvivos"><a class="nav-link" href="#">Nascidos Vivos</a></router-link>
+      </li>
+      <li class="nav-item">
+        <router-link to="/obitos"><a class="nav-link">Obitos</a></router-link>
+      </li>
+    </ul>
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Sitemas</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
-    </div>
-
-    <div class="navbar-end">
-      <div class="navbar-item">
-        <div class="buttons">
-          <a class="button is-primary">
-            <router-link to="admin/users">Admin</router-link> 
-          </a>
-          <a class="button is-light">
-            <router-link to="login">log in</router-link>
-          </a>
-          <a v-on:click="logout" class="button is-light" v-if="logado === true">Logout</a>
-        </div>
+      <div class="offcanvas-body">
+        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <router-link to="/login"><a class="nav-link" href="#">Login</a></router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/register"><a class="nav-link" href="#">Registro</a></router-link>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Serviços
+            </a>
+            <ul class="dropdown-menu">
+              <li> <router-link to="/ssa2"><a class="dropdown-item" href="#">SSA2</a></router-link></li>
+              <li> <router-link to="/nascidosvivos"><a class="dropdown-item" href="#">Vivos</a></router-link></li>
+              <li> <router-link to="/obitos"><a class="dropdown-item" href="#">Obitos</a></router-link></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><router-link to="/admin/users"><a class="dropdown-item" href="#">Administrador</a></router-link></li>
+            </ul>
+            
+          </li>
+          
+        </ul>
+     
+        
       </div>
     </div>
   </div>
 </nav>
+
+
+
 </template>
 
-<script>
-export default {
-  name: 'NavBar', 
-  methods:{
-    logout(){
-      localStorage.clear();
-      this.$router.push({name: 'home'});
-    }
-  }
+<style >
+
+.fixed-top{
+  margin: auto;
+  width: 65%;
+ 
+  border-radius: 20px;
+  margin-top: 10px; 
 }
-</script>
-
-<style>
-
 </style>
