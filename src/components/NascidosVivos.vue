@@ -2,15 +2,25 @@
   
     <div class="container"> 
       <div class="main">
-      <h1>Nascidos Vivos</h1>
+        <div class="my-auto">
+          <div class="row">
+              <div class="col-lg-4 col-md-8 col-12 mx-auto">
+                  <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                      <div class="bg-gradient-primary shadow-primary border-radius-lg py-3 pe-1">
+                          <h4 class="text-white font-weight-bolder text-center mt-2 mb-0">Nascidos Vivos</h4>
+                      </div>           
+                  </div>
+              </div>
+          </div>
+        </div>     
       <br>
-      <form class="row g-3">
+      <form id="formulario" class="row g-3">
         <div class="col">
           <input type="text" class="form-control" placeholder="Responsavel" aria-label="Responsavel" v-model="nome">
         </div>
-        <div class="col">          
-          <select id="ubs" class="form-select" v-model="ubs">
-            <option selected>UBS</option>
+        <div class="col" >          
+          <select class="form-select" size="1" aria-label="size 2 select example" v-model="ubs">
+            <option >UBS</option>
             <option>Sede I</option>
             <option>Sede II</option>
             <option>Batoque</option>
@@ -58,6 +68,7 @@
 
         <div class="row g-3">
           <div class="col">  
+            <label>Sexo</label>
             <select class="form-select" size="1" aria-label="size 1 select example" v-model="sexo">
                 <option selected>Sexo</option>
                 <option value="Masculino">Masculino</option>
@@ -65,13 +76,15 @@
               </select>
           </div>
           <div class="col">  
+            <label>Tipo do Parto</label>
             <select class="form-select" size="1" aria-label="size 2 select example" v-model="tipodeparto">
               <option selected>Tipo de parto</option>
                 <option value="Normal">Normal</option>
                 <option value="Cesario">Cesario</option>              
               </select>
           </div>
-          <div class="col">  
+          <div class="col">
+            <label>Local do Parto</label>  
             <select class="form-select" size="1" aria-label="size 2 select example" >
                 
                 <option selected value="Hospitalar">Hospitalar</option>
@@ -81,13 +94,29 @@
         </div>
       </form>  
       <br>
-      <br>
-      <br>
-      <br>
-      <div class="enviar">
-        <button class="btn btn-primary" @click="cadastrarnascidosvivos">Cadastrar</button>
-        <!-- <small id="nome-erro" v-show="deuErro"> Nome invalido tente novamente</small> -->
+
+
+
+
+      <div class="col-lg-4 col-md-8 col-12 mx-auto">
+        <div class="text-center">
+
+          <div v-if="error != undefined">
+                <div class="notification is-danger">
+                    <p>{{ error }}</p>  
+                </div>
+              </div>
+              <div v-if="deucerto != undefined">
+                <div class="notification is-primary">
+                    <p>{{ msgDeucerto }}</p>  
+                </div>
+              </div>
+          
+       <button  @click="cadastrarnascidosvivos" type="button" class="btn bg-gradient-primary w-100 my-4 mb-2" >Cadastrar</button>
+           
+        </div>
       </div>
+
     </div>
     </div>
     
@@ -111,6 +140,8 @@ export default {
             datadenascimento:0,
             tipodeparto:"",
             localdeparto:"",
+            error: undefined,
+            deucerto: undefined,
             
 
             
@@ -134,10 +165,14 @@ export default {
 
             
             
-        }).then(res =>{
-            console.log(res);
-            this.$router.push({name: 'home'});
+          }).then(res =>{
+            
+            
+            var msgDeucerto = res.data;
+            this.deucerto = msgDeucerto;
+         
         }).catch(err =>{
+          console.log(err.response);
             var msgErro = err.response.data.err;
             this.error = msgErro;
         })

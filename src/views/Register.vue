@@ -40,7 +40,7 @@
                   </div>
                   
                   <div class="text-center">
-                    <router-link to="login" @click="register"><button type="button" class="btn bg-gradient-primary w-100 my-4 mb-2" >Registrar</button></router-link>
+                    <button @click="register" type="button" class="btn bg-gradient-primary w-100 my-4 mb-2" >Registrar</button>
                   </div>
 
                   <div v-if="error != undefined">

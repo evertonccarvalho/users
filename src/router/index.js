@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+
 import HomeView from '../views/HomeView.vue'
 import Register from '../views/Register.vue'
 import Login from '../views/Login.vue'
@@ -8,6 +9,7 @@ import Edit from '../views/Edit.vue'
 import Ssa2 from '../components/Ssa2.vue'
 import NascidosVIvos from '../components/NascidosVivos.vue'
 import Obitos from '../components/Obitos.vue'
+import editform from '../views/EditForm.vue'
 
 
 
@@ -32,6 +34,7 @@ function AdminAuth(to, from, next){
     next("/login");
   }
 }
+
 
 const routes = [
   {
@@ -68,21 +71,27 @@ const routes = [
   component: Ssa2
   },
   {
-    path: '/Nascidosvivos',
-    name: 'nascidosvivos',
-    component: NascidosVIvos
-    },
-    {
-      path: '/Obitos',
-      name: 'obitos',
-      component: Obitos
-    },
+  path: '/Nascidosvivos',
+  name: 'nascidosvivos',
+  component: NascidosVIvos
+  },
+  {
+    path: '/Obitos',
+    name: 'obitos',
+    component: Obitos
+  },
+  {
+    path: '/editform',
+    name: 'editform',
+    component: editform
+  },
 
 ]
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
+
 })
 
 export default router

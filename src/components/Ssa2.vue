@@ -2,9 +2,19 @@
   
     <div class="container"> 
       <div class="main">
-      <h1>SSA2</h1>
-      <br>
-      <form class="row g-3">
+        <div class="my-auto">
+          <div class="row">
+              <div class="col-lg-4 col-md-8 col-12 mx-auto">
+                  <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                      <div class="bg-gradient-primary shadow-primary border-radius-lg py-3 pe-1">
+                          <h4 class="text-white font-weight-bolder text-center mt-2 mb-0">SSA2</h4>
+                      </div>           
+                  </div>
+              </div>
+          </div>
+        </div>   
+
+      <form id="formulario" class="row g-3">
         <div class="col tex">
           <input type="text" class="form-control" placeholder="Responsavel" aria-label="Responsavel" v-model="nome">
         </div>
@@ -63,23 +73,37 @@
           
       </form> 
       <br>
-      <br>
-      <br> 
-      <div class="enviar">
-        <button class="btn btn-primary" @click="cadastrarssa2">Cadastrar</button>
-        <!-- <small id="nome-erro" v-show="deuErro"> Nome invalido tente novamente</small> -->
-      </div> 
+
+      <div class="col-lg-4 col-md-8 col-12 mx-auto">
+        <div class="text-center">
+          <div v-if="error != undefined">
+                <div class="notification is-danger">
+                    <p>{{ error }}</p>  
+                </div>
+              </div>
+              <div v-if="deucerto != undefined">
+                <div class="notification is-primary">
+                    <p>{{ msgDeucerto }}</p>  
+                </div>
+              </div>
+            <button @click="cadastrarssa2" type="button" class="btn bg-gradient-primary w-100 my-4 mb-2">Cadastrar</button>
+           
+        </div>
+      </div>
+ 
     </div>     
     </div>
   
-    
+     <!-- <small id="nome-erro" v-show="deuErro"> Nome invalido tente novamente</small> -->
 
 </template>
 
 <script>
 import axios from 'axios';
-export default {
-  
+export default 
+
+{ 
+
     data(){
         return{
             ubs:"",
@@ -91,6 +115,8 @@ export default {
             gestantesAte20Anos:0,
             familias:0,
             familiasAcompanhada:0,
+            error: undefined,
+            deucerto: undefined,
             
         }
     },
@@ -107,27 +133,37 @@ export default {
             gestantesAte20Anos:this.gestantesAte20Anos,
             familias:this.familias,
             familiasAcompanhada:this.familiasAcompanhada,
-            
-            
-        }).then(res =>{
-            console.log(res);
-            this.$router.push({name: 'home'});
+          }).then(res =>{
+            var msgDeucerto = res.data;
+            this.deucerto = msgDeucerto;
         }).catch(err =>{
+          console.log(err.response);
             var msgErro = err.response.data.err;
             this.error = msgErro;
         })
-       
     }
-
-    }
+}
 
 }
 
 </script>
 
-<style scoped>
+<style >
 
 
+.card-header{
+padding: 0rem;
+position: relative;
+z-index: 2;
+margin-right: 1rem;
+margin-left: 1rem;
+margin-top: -4.5rem !important;
+padding-bottom: 1rem;
+}
+#formulario{
 
+  padding-top: 3rem;
+  
+}
 
 </style>

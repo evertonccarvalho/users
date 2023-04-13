@@ -2,9 +2,20 @@
   
     <div class="container"> 
       <div class="main">
-      <h1>Óbitos</h1>
+        <div class="my-auto">
+          <div class="row">
+              <div class="col-lg-4 col-md-8 col-12 mx-auto">
+                  <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                      <div class="bg-gradient-primary shadow-primary border-radius-lg py-3 pe-1">
+                          <h4 class="text-white font-weight-bolder text-center mt-2 mb-0">Óbitos</h4>
+                      </div>           
+                  </div>
+              </div>
+          </div>
+        </div> 
+     
       <br>
-      <form class="row g-3">
+      <form id="formulario" class="row g-3">
         <div class="col">
           <input type="text" class="form-control" placeholder="Responsavel" aria-label="Responsavel" v-model="nome">
         </div>
@@ -21,6 +32,10 @@
           </select>
         </div>
         <div class="row g-3">
+          <div class="col">
+            <label>Nome</label>
+            <input class="form-control" type="text" placeholder="Nome" maxlength="150" v-model="nome">
+          </div>
           <div class="col">
             <label>Nome da Mãe</label>
             <input class="form-control" type="text" placeholder="Nome da Mãe" maxlength="150" v-model="nomedamae">
@@ -41,55 +56,71 @@
 
           <div class="col">
             <label>Idade</label>
-            <input class="form-control" type="text" placeholder="Idade" maxlength="2" v-model="idade">
+            <input class="form-control" type="number" placeholder="Idade" maxlength="2" v-model="idade">
           </div>
 
           <div class="col"> 
-            <label>Peso</label>
-            <input class="form-control" type="text" placeholder="Ex: 3.560" maxlength="5" step="0.01" v-model="peso">
+            <label>Nº do Prontuario</label>
+            <input class="form-control" type="number" placeholder="Pronturario" maxlength="50" step="0.01" v-model="prontuario">
           </div>
 
           <div class="col"> 
-            <label>Data de Nascimento</label>
-            <input class="form-control" type="date" placeholder="Data de nascimento" v-model="datadenascimento">
+            <label>Data do Óbito</label>
+            <input class="form-control" type="date" placeholder="Data do Óbito" v-model="datadoobito">
           </div>
         </div>
 
 
         <div class="row g-3">
           <div class="col">  
+            <label>Sexo</label>
             <select class="form-select" size="1" aria-label="size 1 select example" v-model="sexo">
-                <option selected>Sexo</option>
+                
                 <option value="Masculino">Masculino</option>
                 <option value="Feminino">Feminino</option>              
               </select>
           </div>
+   
           <div class="col">  
-            <select class="form-select" size="1" aria-label="size 2 select example" v-model="tipodeparto">
-              <option selected>Tipo de parto</option>
-                <option value="Normal">Normal</option>
-                <option value="Cesario">Cesario</option>              
-              </select>
-          </div>
-          <div class="col">  
-            <select class="form-select" size="1" aria-label="size 2 select example" >
-                
+            <label>Local do Óbito</label>
+            <select class="form-select" size="1" aria-label="size 2 select example"  v-model="localdoobito">              
                 <option selected value="Hospitalar">Hospitalar</option>
                 <option value="Domiciliar">Domiciliar</option>              
               </select>
           </div>
         </div>
-    
+        <div class="row g-3">
+          <div class="col">  
+            <label>Causa Referida</label>
+            <input class="form-control" type="text" placeholder="Causa" maxlength="2000"  v-model="Causa">
+          
+
+          </div>
+        </div>
       </form>  
       <br>
-      <br>
-      <br>
-      <br>
-      <div class="enviar">
-        <button class="btn btn-primary" @click="cadastrarObitos">Cadastrar</button>
-        <!-- <small id="nome-erro" v-show="deuErro"> Nome invalido tente novamente</small> -->
+    
+              
+      <div class="col-lg-4 col-md-8 col-12 mx-auto">
+        <div class="text-center">
+          <div v-if="error != undefined">
+                <div class="notification is-danger">
+                    <p>{{ error }}</p>  
+                </div>
+              </div>
+              <div v-if="deucerto != undefined">
+                <div class="notification is-primary">
+                    <p>{{ msgDeucerto }}</p>  
+                </div>
+              </div>
+          
+         
+         <button  @click="cadastrarObitos" type="button" class="btn bg-gradient-primary w-100 my-4 mb-2" >Cadastrar</button>
+          
+        </div>
       </div>
 
+  
     </div>
     </div>
     
@@ -109,11 +140,12 @@ export default {
             endereco:"",
             municipioderesidencia: "",
             sexo:"",
-            peso:0,
-            datadenascimento:0,
-            tipodeparto:"",
-            localdeparto:"",
-            
+            prontuario:0,
+            datadoobito:0,
+            localdoobito:"",
+            Causa:"",
+            error: undefined,
+            deucerto: undefined,
 
             
         }
@@ -121,7 +153,9 @@ export default {
     methods:{
         
       cadastrarObitos(){
-        axios.post("http://localhost:8686/obitos",{
+        axios.post("http://localhost:8686/obitos",
+        
+        {
             ubs: this.ubs,
             nome: this.nome,
             nomedamae: this.nomedamae,
@@ -129,17 +163,21 @@ export default {
             endereco: this.endereco,
             municipioderesidencia:this.municipioderesidencia,
             sexo: this.sexo, 
-            peso: this.peso,
-            datadenascimento: this.datadenascimento,
-            tipodeparto: this.tipodeparto,
-            localdeparto: this.localdeparto,
+            prontuario: this.prontuario,
+            datadoobito: this.datadoobito,
+            localdoobito: this.localdoobito,
+            Causa: this.Causa,
 
             
             
         }).then(res =>{
-            console.log(res);
-            this.$router.push({name: 'home'});
+            
+            console.log(res)
+            var msgDeucerto = res.data.value;
+            this.deucerto = msgDeucerto;
+         
         }).catch(err =>{
+          console.log(err.response);
             var msgErro = err.response.data.err;
             this.error = msgErro;
         })
@@ -154,3 +192,5 @@ export default {
 <style>
 
 </style>
+
+module.

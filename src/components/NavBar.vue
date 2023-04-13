@@ -1,5 +1,5 @@
 <template>
-<nav class="navbar bg-body-tertiary fixed-top" data-bs-theme="dark">
+<nav class="navbar bg-body-tertiary fixed-top" bg-dark fixed-top>
   <div class="container-fluid">
     <br>
     <ul class="nav nav-tabs card-header-tabs">
@@ -60,13 +60,24 @@
 
 </template>
 
+<script>
+
+
+
+</script>
+
 <style >
 
 .fixed-top{
+
   margin: auto;
-  width: 65%;
+  margin: auto;
+  width: 50vh;
  
   border-radius: 20px;
   margin-top: 10px; 
+ 
+ 
 }
+
 </style>
