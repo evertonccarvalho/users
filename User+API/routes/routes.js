@@ -21,7 +21,8 @@ router.post('/ssa2',FormsController.create);
 router.post('/nascidosvivos',FormsController.createVivos);
 router.post('/obitos',FormsController.createObitos);
 
-router.get("/formularios/",FormsController.indexForm); //ok
-
+router.get("/formularios",FormsController.indexForm); //ok
+router.get("/formularios/:id",FormsController.findForm); //ok
+router.put("/formularios",FormsController.editForm);
 
 module.exports = router;

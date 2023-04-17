@@ -134,19 +134,59 @@ async createObitos(req, res){
     }
 
     async indexForm(req, res){
-        var formularios = await FormSsa2.findFormAll();
-        res.json(formularios);
+        var formulario = await FormSsa2.findFormAll();
+        res.json(formulario);
     }
 
     async findForm(req, res){
         var id = req.params.id;
-        var user = await User.findFormById(id);
-        if(user == undefined){
+        var formulario = await FormSsa2.findFormById(id);
+        if(formulario == undefined){
             res.status(404);
             res.json({});
         }else{
             res.status(200)
-            res.json(user);
+            res.json(formulario);
+        }
+    }
+    async editForm(req, res){
+        var {
+            id,
+            ubs,
+            nome,
+            nomedamae,
+            idade,
+            endereco,
+            municipioderesidencia,
+            sexo,
+            peso,
+            datadenascimento,
+            tipodeparto,
+            localdeparto} = req.body;
+        var result = await FormSsa2.updateForm(
+            id,
+            ubs,
+            nome,
+            nomedamae,
+            idade,
+            endereco,
+            municipioderesidencia,
+            sexo,
+            peso,
+            datadenascimento,
+            tipodeparto,
+            localdeparto);
+        if(result != undefined){
+            if(result.status){
+                res.status(200);
+                res.send("Tudo OK! editado");
+            }else{
+                res.status(406);
+                res.send(result.err)
+            }
+        }else{
+            res.status(406);
+            res.send("Ocorreu um erro no servidor!");
         }
     }
 

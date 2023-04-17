@@ -173,7 +173,7 @@ export default {
         }).then(res =>{
             
             console.log(res)
-            var msgDeucerto = res.data.value;
+            var msgDeucerto = res.request.responseText;
             this.deucerto = msgDeucerto;
          
         }).catch(err =>{

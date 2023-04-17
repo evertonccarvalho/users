@@ -18,6 +18,8 @@
                     <label for="email">Email</label>
                     <input type="email" placeholder="email@email.com" class="input" v-model="email">
                     <hr>
+                    <input type="number" placeholder="role" class="input" v-model="role">
+                    <hr>
                     <button class="button is-success" @click="update">Editar</button>
                 </div>
             </div>
@@ -43,6 +45,7 @@ export default {
             console.log(res);
             this.name = res.data.name;
             this.email = res.data.email;
+            this.role = res.data.role;
             this.id = res.data.id;
             
         }).catch(err => {
@@ -56,6 +59,7 @@ export default {
             name: '',
             id: -1,
             email:'',
+            role:0,
             error: undefined,
         }
     },
@@ -74,6 +78,7 @@ export default {
         axios.put("http://localhost:8686/user",{
             name: this.name,
             email: this.email,
+            role: this.role,
             id: this.id,
         },req).then(res =>{
             console.log(res);

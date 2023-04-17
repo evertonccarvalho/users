@@ -1,6 +1,9 @@
 var knex = require("../database/connection");
+// const PasswordToken = require("./PasswordToken");
 var bcrypt = require("bcrypt");
-const PasswordToken = require("./PasswordToken");
+
+
+
 
 
 
@@ -130,12 +133,20 @@ class User{
         }else{
             return {status: false,err: "O usuário não existe, portanto não pode ser deletado."}
         }
+
+        
+    }
+
+    async setUsed(token){
+        await knex.update({used: 1}).where({token: token}).table("passwordtokens");
     }
 
     async changePassword(newPassword,id,token){
         var hash = await bcrypt.hash(newPassword, 10);
         await knex.update({password: hash}).where({id: id}).table("users");
-        await PasswordToken.setUsed(token);
+
+        await this.setUsed(token);
+        
     }
 
 }
