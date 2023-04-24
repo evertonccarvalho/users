@@ -21,7 +21,7 @@
       </div>
       <div class="col">          
         <select id="ubs" class="form-select" v-model="ubs">
-          <option selected>UBS</option>
+          <option>UBS</option>
           <option>Sede I</option>
           <option>Sede II</option>
           <option>Batoque</option>

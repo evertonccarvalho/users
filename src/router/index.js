@@ -54,16 +54,7 @@ const routes = [
     component: Login
   },
   
-  {
-  path: '/Ssa2',
-  name: 'ssa2',
-  component: Ssa2
-  },
-  {
-  path: '/Nascidosvivos',
-  name: 'nascidosvivos',
-  component: NascidosVIvos
-  },
+
 
 
   {
@@ -100,6 +91,16 @@ const routes = [
         name: 'EditObitos',
         component: EditObitos,
         beforeEnter: AdminAuth
+      },
+      {
+      path: '/Ssa2',
+      name: 'ssa2',
+      component: Ssa2
+      },
+      {
+      path: '/Nascidosvivos',
+      name: 'nascidosvivos',
+      component: NascidosVIvos
       },
     ],
     beforeEnter: AdminAuth

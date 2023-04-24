@@ -77,7 +77,7 @@
                 <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
                 <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-0">Account settings</a>
                 <form method="POST" action="#" role="none">
-                  <button type="submit" class="text-gray-700 block w-full px-4 py-2 text-left text-sm" role="menuitem" tabindex="-1" id="menu-item-3">Sair</button>
+                  <router-link to="/login"><button @click="logout" type="submit" class="text-gray-700 block w-full px-4 py-2 text-left text-sm" role="menuitem" tabindex="-1" id="menu-item-3">Sair</button></router-link>
                 </form>
               </div>
             </div>
@@ -113,7 +113,12 @@ export default {
     toggleDrop() {
       this.showDropDown = !this.showDropDown
 
+    },
+    logout(){
+      localStorage.removeItem('token');
+      
     }
+    
   }
 
 }
