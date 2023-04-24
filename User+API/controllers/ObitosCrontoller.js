@@ -1,8 +1,8 @@
 // var Ssa2 = require("../models/User");
-var FormSsa2 = require("../models/FormSsa2");
+var obitos = require("../models/obitos");
 const { default: knex } = require("knex");
 
-class FormsController
+class ObitosCrontoller
 {   
 
     async create(req, res){
@@ -26,7 +26,7 @@ class FormsController
 
         }
      
-        await FormSsa2.new(
+        await obitos.new(
             ubs,
             nome,
             criancasMenor6Meses,
@@ -68,7 +68,7 @@ class FormsController
 
             }
         
-        await FormSsa2.nasviv(
+        await obitos.nasviv(
             ubs,
             nome,
             nomedamae,
@@ -88,6 +88,15 @@ class FormsController
         // res.status(406);
         // res.send(result.err)
     }
+
+
+
+///////////////////////////////////////////
+
+
+
+
+
 async createObitos(req, res){
         var {       
             ubs,    
@@ -97,10 +106,10 @@ async createObitos(req, res){
             endereco,
             municipioderesidencia,
             sexo,
-            peso,
-            datadenascimento,
-            tipodeparto,
-            localdeparto,} = req.body;
+            prontuario,
+            datadoobito,
+            localdoobito,
+            Causa,} = req.body;
        
                      
             if(ubs == undefined || ubs == '' || ubs == ' '){
@@ -111,7 +120,7 @@ async createObitos(req, res){
 
             }
      
-        await FormSsa2.obitos(
+        await obitos.obitos(
             ubs,
             nome,
             nomedamae,
@@ -119,10 +128,10 @@ async createObitos(req, res){
             endereco,
             municipioderesidencia,
             sexo,
-            peso,
-            datadenascimento,
-            tipodeparto,
-            localdeparto,);
+            prontuario,
+            datadoobito,
+            localdoobito,
+            Causa,);
             
 
         res.status(200);
@@ -134,13 +143,13 @@ async createObitos(req, res){
     }
 
     async indexForm(req, res){
-        var formulario = await FormSsa2.findFormAll();
+        var formulario = await obitos.findFormAll();
         res.json(formulario);
     }
 
     async findForm(req, res){
         var id = req.params.id;
-        var formulario = await FormSsa2.findFormById(id);
+        var formulario = await obitos.findFormById(id);
         if(formulario == undefined){
             res.status(404);
             res.json({});
@@ -159,11 +168,11 @@ async createObitos(req, res){
             endereco,
             municipioderesidencia,
             sexo,
-            peso,
-            datadenascimento,
-            tipodeparto,
-            localdeparto} = req.body;
-        var result = await FormSsa2.updateForm(
+            prontuario,
+            datadoobito,
+            localdoobito,
+            Causa} = req.body;
+        var result = await obitos.updateObitos(
             id,
             ubs,
             nome,
@@ -172,10 +181,10 @@ async createObitos(req, res){
             endereco,
             municipioderesidencia,
             sexo,
-            peso,
-            datadenascimento,
-            tipodeparto,
-            localdeparto);
+            prontuario,
+            datadoobito,
+            localdoobito,
+            Causa);
         if(result != undefined){
             if(result.status){
                 res.status(200);
@@ -189,8 +198,21 @@ async createObitos(req, res){
             res.send("Ocorreu um erro no servidor!");
         }
     }
+    async removeForm(req, res){
+        var id = req.params.id;
+
+        var result = await obitos.deleteObito(id);
+
+        if(result.status){
+            res.status(200);
+            res.send("Tudo OK!");
+        }else{
+            res.status(406);
+            res.send(result.err);
+        }
+    }
 
 }
 
 
-module.exports = new FormsController();
+module.exports = new ObitosCrontoller();

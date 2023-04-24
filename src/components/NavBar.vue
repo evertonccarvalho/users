@@ -43,7 +43,7 @@
               <li>
                 <hr class="dropdown-divider">
               </li>
-              <li><router-link to="/admin/users"><a class="dropdown-item" href="#">Administrador</a></router-link></li>
+              <li><router-link to="/admin/users/dashboard"><a class="dropdown-item" href="#">Administrador</a></router-link></li>
             </ul>
             
           </li>
@@ -75,7 +75,7 @@
   width: 50vh;
  
   border-radius: 20px;
-  margin-top: 10px; 
+  margin-top: 0px; 
  
  
 }

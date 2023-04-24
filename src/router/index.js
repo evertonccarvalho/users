@@ -1,16 +1,21 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-import HomeView from '../views/HomeView.vue'
 import Register from '../views/Register.vue'
 import Login from '../views/Login.vue'
-import Users from '../views/Users.vue'
 import axios from 'axios'
 import Edit from '../views/Edit.vue'
 import Ssa2 from '../components/Ssa2.vue'
 import NascidosVIvos from '../components/NascidosVivos.vue'
-import Obitos from '../components/Obitos.vue'
-import editform from '../views/EditForm.vue'
 
+
+/////////////dashBoard///////////
+import EditObitos from '../views/EditObitos'
+import dashboard from '../pages/master/dashboard'
+import adminpainel from '../pages/adminpainel'
+import editarObitos from '../pages/editarObitos'
+import Obitos from '../pages/Obitos'
+
+//////////////////////////////
 
 
 function AdminAuth(to, from, next){
@@ -37,12 +42,7 @@ function AdminAuth(to, from, next){
 
 
 const routes = [
-  {
-    path: '/',
-    name: 'home',
-    component: HomeView
-  },
-  
+ 
   {
     path: '/register',
     name: 'Register',
@@ -53,18 +53,7 @@ const routes = [
     name: 'Login',
     component: Login
   },
-  {
-    path: '/admin/users/edit/:id',
-    name: 'UserEdit',
-    component: Edit,
-    beforeEnter: AdminAuth
-  },
-  {
-  path: '/admin/users',
-  name: 'Users',
-  component: Users,
-  beforeEnter: AdminAuth
-  },
+  
   {
   path: '/Ssa2',
   name: 'ssa2',
@@ -75,17 +64,46 @@ const routes = [
   name: 'nascidosvivos',
   component: NascidosVIvos
   },
+
+
   {
-    path: '/Obitos',
-    name: 'obitos',
-    component: Obitos
-  },
-  {
-    path: '/editform',
-    name: 'editform',
-    component: editform
+    path: '/admin/users/edit/:id',
+    name: 'UserEdit',
+    component: Edit,
+    beforeEnter: AdminAuth
   },
 
+
+  {
+    name: 'Dashboard',
+    path: '/admin/users/Dashboard',
+    component: dashboard,
+    
+    children: [
+       {
+        name: 'adminpainel',
+        path: '/adminpainel',
+        component:adminpainel
+      },
+      {
+        name: 'obitos',
+        path: '/obitos',
+        component:Obitos
+      },
+      {
+        name: 'editarObitos',
+        path: '/editarObitos',
+        component:editarObitos
+      },
+      {
+        path: '/admin/users/editObitos/:id',
+        name: 'EditObitos',
+        component: EditObitos,
+        beforeEnter: AdminAuth
+      },
+    ],
+    beforeEnter: AdminAuth
+  },
 ]
 
 const router = createRouter({
