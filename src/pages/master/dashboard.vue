@@ -65,7 +65,7 @@
           <!-- User login -->
           <div class="w-[200px] ">
             <div class="flex items-center justify-start space-x-4" @click="toggleDrop">
-              <img class="w-10 h-10 rounded-full border-2 border-gray-50" src="https://yt3.ggpht.com/hqsxh-Vnbw9OK0_X4DAWh6RkmEUVnL-82SRCyh-IKr9fIXR8zhUCRdBEwgWWL_14q_L8Piod=s108-c-k-c0x00ffffff-no-rj" alt="">
+              <img class="w-10 h-10 rounded-full border-2 border-gray-50" src="" alt="">
               <div class="font-semibold dark:text-dark text-left">
                 <div>Éverton Carvalho</div>
                 <div class="text-xs text-gray-500 dark:text-gray-400">Admin</div>

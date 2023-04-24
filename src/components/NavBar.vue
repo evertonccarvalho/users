@@ -66,18 +66,3 @@
 
 </script>
 
-<style >
-
-.fixed-top{
-
-  margin: auto;
-  margin: auto;
-  width: 50vh;
- 
-  border-radius: 20px;
-  margin-top: 0px; 
- 
- 
-}
-
-</style>

@@ -151,19 +151,7 @@ export default
 <style >
 
 
-.card-header{
-padding: 0rem;
-position: relative;
-z-index: 2;
-margin-right: 1rem;
-margin-left: 1rem;
-margin-top: -4.5rem !important;
-padding-bottom: 1rem;
-}
-#formulario{
 
-  padding-top: 3rem;
-  
-}
+
 
 </style>

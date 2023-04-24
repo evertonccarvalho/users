@@ -7,6 +7,7 @@ import Edit from '../views/Edit.vue'
 import Ssa2 from '../components/Ssa2.vue'
 import NascidosVIvos from '../components/NascidosVivos.vue'
 
+import home from '../views/Home'
 
 /////////////dashBoard///////////
 import EditObitos from '../views/EditObitos'
@@ -42,21 +43,22 @@ function AdminAuth(to, from, next){
 
 
 const routes = [
- 
+  {
+    path: '/home',
+    name: 'home',
+    component: home
+  }, 
   {
     path: '/register',
     name: 'Register',
     component: Register
   },
   {
-    path:'/login',
+    path:'/',
     name: 'Login',
     component: Login
   },
   
-
-
-
   {
     path: '/admin/users/edit/:id',
     name: 'UserEdit',
