@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-import Register from '../views/Register.vue'
+import register from '../views/Register.vue'
 import Login from '../views/Login.vue'
 import axios from 'axios'
 import Edit from '../views/Edit.vue'
@@ -50,8 +50,8 @@ const routes = [
   }, 
   {
     path: '/register',
-    name: 'Register',
-    component: Register
+    name: 'register',
+    component: register
   },
   {
     path:'/',
