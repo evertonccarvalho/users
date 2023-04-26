@@ -18,14 +18,14 @@
     <form id="formulario" class="row g-3">
       <div class="col">
  
-        <v-select id="ubs" class="form-select" v-model="Responsavel">
+        <select id="ubs" class="form-select" v-model="Responsavel">
             <option v-for="resp in users" :key="resp.id">{{resp.name}}</option>
-        </v-select>    </div>
+        </select>    </div>
       <div class="col">
   
-        <v-select id="ubs" class="form-select" v-model="Ubs">
+        <select id="ubs" class="form-select" v-model="Ubs">
             <option v-for="resp in users" :key="resp.id">{{resp.ubs}}</option>
-        </v-select>
+        </select>
 
 
 
@@ -136,8 +136,7 @@
 
 
 import axios from 'axios';
-import Vue from "vue";
-import vSelect from "vue-select";
+
 export default {
 
 
@@ -225,7 +224,7 @@ export default {
 
   },
   components(){
-    Vue.component("v-select", vSelect);
+  
   }
 
 }
