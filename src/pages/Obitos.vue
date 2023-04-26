@@ -17,19 +17,18 @@
     <br>
     <form id="formulario" class="row g-3">
       <div class="col">
-        <input type="text" class="form-control" placeholder="Responsavel" aria-label="Responsavel" v-model="nome">
-      </div>
-      <div class="col">          
-        <select id="ubs" class="form-select" v-model="ubs">
-          <option>UBS</option>
-          <option>Sede I</option>
-          <option>Sede II</option>
-          <option>Batoque</option>
-          <option>Baixa da Umburana</option>
-          <option>Baixio Grande</option>
-          <option>Castanhão</option>
-          <option>Tibolo</option>
-        </select>
+ 
+        <v-select id="ubs" class="form-select" v-model="Responsavel">
+            <option v-for="resp in users" :key="resp.id">{{resp.name}}</option>
+        </v-select>    </div>
+      <div class="col">
+  
+        <v-select id="ubs" class="form-select" v-model="Ubs">
+            <option v-for="resp in users" :key="resp.id">{{resp.ubs}}</option>
+        </v-select>
+
+
+
       </div>
       <div class="row g-3">
         <div class="col">
@@ -134,11 +133,37 @@
 </template>
 
 <script>
+
+
 import axios from 'axios';
+import Vue from "vue";
+import vSelect from "vue-select";
 export default {
+
+
+
+  created(){
+    var req = {
+        headers:{
+        Authorization: "Bearer " + localStorage.getItem('token')
+        }
+      }
+
+    axios.get("http://localhost:8686/user",req).then(res => {
+      console.log(res);
+      this.users = res.data
+    }).catch(err => {
+      console.log(err);
+    })
+    console.log("usuarios em obitos");
+    },
+
+
   data(){
       return{
-          ubs:"",
+          Ubs: '', // define a primeira opção do array como selecionada
+          users: [],
+          Responsavel:"",
           nome:"",
           nomedamae:"",
           idade:0,
@@ -156,12 +181,17 @@ export default {
       }
   },
   methods:{
+
+
       
     cadastrarObitos(){
       axios.post("http://localhost:8686/obitos",
       
+      
       {
-          ubs: this.ubs,
+        
+          responsavel: this.Responsavel,
+          ubs: this.Ubs,
           nome: this.nome,
           nomedamae: this.nomedamae,
           idade: this.idade,
@@ -181,14 +211,21 @@ export default {
           var msgDeucerto = res.request.responseText;
           this.deucerto = msgDeucerto;
        
-      }).catch(err =>{
-        console.log(err.response);
-          var msgErro = err.response.data.err;
-          this.error = msgErro;
-      })
+        }).catch(err => {
+                if (err.response) {
+                    var msgErro = err.response.data.err;
+                    this.error = msgErro;
+                } else {
+                    console.log(err);
+                    this.error = "Erro ao processar a solicitação";
+                }
+            })
      
   }
 
+  },
+  components(){
+    Vue.component("v-select", vSelect);
   }
 
 }

@@ -44,7 +44,7 @@
 
                     <div class="text-center">
                     <button @click="register" type="button" class="btn gradient-custom-2 w-100 my-4 mb-2 " >Registrar</button>
-                  </div>
+                   </div>
 
                   <div v-if="error != undefined">
                         <div class="notification is-danger">

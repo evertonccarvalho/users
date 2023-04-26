@@ -53,8 +53,8 @@ class UserController {
     }
 
     async edit(req, res){
-        var {id, name, role, email} = req.body;
-        var result = await User.update(id,email,name,role);
+        var {id, name, role, email, ubs} = req.body;
+        var result = await User.update(id,email,name,role,ubs);
         if(result != undefined){
             if(result.status){
                 res.status(200);

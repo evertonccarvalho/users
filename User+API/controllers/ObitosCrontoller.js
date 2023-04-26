@@ -98,7 +98,8 @@ class ObitosCrontoller
 
 
 async createObitos(req, res){
-        var {       
+        var {     
+            responsavel,  
             ubs,    
             nome,
             nomedamae,
@@ -121,6 +122,7 @@ async createObitos(req, res){
             }
      
         await obitos.obitos(
+            responsavel,
             ubs,
             nome,
             nomedamae,
@@ -161,6 +163,7 @@ async createObitos(req, res){
     async editForm(req, res){
         var {
             id,
+            responsavel,
             ubs,
             nome,
             nomedamae,
@@ -173,6 +176,7 @@ async createObitos(req, res){
             localdoobito,
             Causa} = req.body;
         var result = await obitos.updateObitos(
+            responsavel,
             id,
             ubs,
             nome,

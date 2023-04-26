@@ -47,7 +47,8 @@ class Obitos{
         tipodeparto,
         localdeparto,){
        try{
-        await knex.insert({ubs,    
+        await knex.insert({
+            ubs,    
             nome,
             nomedamae,
             idade,
@@ -66,7 +67,9 @@ class Obitos{
    
 
 //////////////// obitos ////////////////
-    async obitos(ubs,    
+    async obitos(
+        responsavel, 
+        ubs,    
         nome,
         nomedamae,
         idade,
@@ -78,7 +81,8 @@ class Obitos{
         localdoobito,
         Causa,){
        try{
-        await knex.insert({ubs,    
+        await knex.insert({ubs,
+            responsavel,    
             nome,
             nomedamae,
             idade,
@@ -102,6 +106,7 @@ class Obitos{
      async findFormAll(){
           try{
           var result = await knex.select([
+               "responsavel",
                "id",
                "ubs",
                "nome",
@@ -125,6 +130,7 @@ class Obitos{
      async findFormById(id){
           try{
           var result = await knex.select([
+          "responsavel",
           "id",
           "ubs",
           "nome",
@@ -153,6 +159,7 @@ class Obitos{
      async findFormByNome(nome){
           try{
                var result = await knex.select([
+                    "responsavel",
                     "id",
                     "ubs",
                     "nome",
@@ -198,6 +205,7 @@ class Obitos{
 
 
      async updateObitos(
+          responsavel,
           id, 
           ubs, 
           nome,
@@ -260,6 +268,9 @@ class Obitos{
                }
                if(Causa != undefined){
                     editObito.Causa = Causa;
+               }
+               if(responsavel != undefined){
+                    editObito.Causa = responsavel;
                }
                try{
                     await knex.update(editObito).where({id: id}).table("obitos");

@@ -66,16 +66,16 @@
           <div class="w-[200px] ">
             <div class="flex items-center justify-start space-x-4" @click="toggleDrop">
               <img class="w-10 h-10 rounded-full border-2 border-gray-50" src="" alt="">
-              <div class="font-semibold dark:text-dark text-left">
-                <div>Éverton Carvalho</div>
-                <div class="text-xs text-gray-500 dark:text-gray-400">Admin</div>
+              <div class="font-semibold dark:text-dark text-left" v-for="user in users" :key="user.id">
+                <div>{{user.name}}</div>
+                <div class="text-xs text-gray-500 dark:text-gray-400">{{user.ubs}}</div>
               </div>
             </div>
             <!-- Drop down -->
             <div v-show="showDropDown" class="absolute right-[10px] z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
               <div class="py-1 text-left" role="none">
                 <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
-                <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-0">Account settings</a>
+                <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-0">Configurações</a>
                 <form method="POST" action="#" role="none">
                   <router-link to="/"><button @click="logout" type="submit" class="text-gray-700 block w-full px-4 py-2 text-left text-sm" role="menuitem" tabindex="-1" id="menu-item-3">Sair</button></router-link>
                 </form>
@@ -96,14 +96,35 @@
 
 </template>
 <script>
+import axios from 'axios';
 export default {
-  data() {
-    return {
+  
+  created(){
+    var req = {
+        headers:{
+        Authorization: "Bearer " + localStorage.getItem('token')
+        }
+      }
+
+    axios.get("http://localhost:8686/user",req).then(res => {
+      console.log(res);
+      this.users = res.data
+    }).catch(err => {
+      console.log(err);
+    })
+    console.log("usuarios encontrados");
+    },
+
+    data()
+    {
+    return{
+      users:[],
       showDropDown: false,
       showSide: true
     }
   },
-  methods: {
+  methods: {   
+
     // hide show side bar
     toggleSideBar() {
       this.showSide = !this.showSide
@@ -123,6 +144,7 @@ export default {
 
 }
 </script>
+
 
 <style>
 
