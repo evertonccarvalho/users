@@ -6,7 +6,7 @@ import axios from 'axios'
 import Edit from '../views/Edit.vue'
 import Ssa2 from '../components/Ssa2.vue'
 import NascidosVIvos from '../components/NascidosVivos.vue'
-
+import PowerBiDashboard from '../components/PowerBiDashboard.vue'
 import home from '../views/Home'
 
 /////////////dashBoard///////////
@@ -43,6 +43,7 @@ function AdminAuth(to, from, next){
 
 
 const routes = [
+  
   {
     path: '/home',
     name: 'home',
@@ -57,16 +58,13 @@ const routes = [
     path:'/',
     name: 'Login',
     component: Login
-  },
-  
+  },  
   {
     path: '/admin/users/edit/:id',
     name: 'UserEdit',
     component: Edit,
     beforeEnter: AdminAuth
   },
-
-
   {
     name: 'Dashboard',
     path: '/admin/users/Dashboard',
@@ -92,7 +90,7 @@ const routes = [
         path: '/admin/users/editObitos/:id',
         name: 'EditObitos',
         component: EditObitos,
-        beforeEnter: AdminAuth
+       //// beforeEnter: AdminAuth
       },
       {
       path: '/Ssa2',
@@ -104,9 +102,15 @@ const routes = [
       name: 'nascidosvivos',
       component: NascidosVIvos
       },
+      {
+        path: '/powerbi',
+        name: 'powerbi',
+        component: PowerBiDashboard
+      },
     ],
-    beforeEnter: AdminAuth
+    ////beforeEnter: AdminAuth
   },
+ 
 ]
 
 const router = createRouter({
