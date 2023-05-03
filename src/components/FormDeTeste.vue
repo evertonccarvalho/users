@@ -167,18 +167,22 @@
       
       {
         
-          responsavel: this.Responsavel,
+
           ubs: this.Ubs,
+          datadoobito: this.datadoobito,
           nome: this.nome,
           nomedamae: this.nomedamae,
-          idade: this.idade,
           endereco: this.endereco,
           municipioderesidencia:this.municipioderesidencia,
           sexo: this.sexo, 
-          prontuario: this.prontuario,
-          datadoobito: this.datadoobito,
+          idade: this.idade,
           localdoobito: this.localdoobito,
+          prontuario: this.prontuario,
           Causa: this.Causa,
+          responsavel: this.Responsavel,
+
+
+
 
           
           
