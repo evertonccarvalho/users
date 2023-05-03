@@ -66,7 +66,7 @@
               <router-link :to="{name:'UserEdit',params:{id: user.id}}">
               <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline" @click="update" >Edit</a></router-link>
               /
-              <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline" @click="showModalUser(user.id)" >Deletar</a> 
+              <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline" @click="showModaluser(user.id)" >Deletar</a> 
             
             </td>
 
@@ -77,7 +77,7 @@
     </div>
 
     <!-- ////modal/// -->
-    <div :class="{modal: true, 'is-active': showModal}">
+    <div class="form-outline mb-4" :class="{modal: true, 'is-active': showModal}">
           <div class="modal-background"></div>
           <div class="modal-content">
             
@@ -145,9 +145,9 @@ export default {
 
   methods:{
     hideModal(){
-      this.showModal =false
+      this.showModal = false
     },
-    showModalUser(id){
+    showModaluser(id){
       this.deleteUserId = id;
       this.showModal = true;
     },

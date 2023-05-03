@@ -68,7 +68,7 @@
               <img class="w-10 h-10 rounded-full border-2 border-gray-50" src="" alt="">
               <div class="font-semibold dark:text-dark text-left" v-for="user in users" :key="user.id">
                 <div>{{user.name}}</div>
-                <div class="text-xs text-gray-500 dark:text-gray-400">{{user.ubs}}</div>
+                <div class="text-xs text-gray-500 dark:text-gray-400">{{user.email}}</div>
               </div>
             </div>
             <!-- Drop down -->

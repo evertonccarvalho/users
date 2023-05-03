@@ -9,6 +9,8 @@ import NascidosVIvos from '../components/NascidosVivos.vue'
 
 import home from '../views/Home'
 
+import FormDeTeste from '../components/FormDeTeste.vue'
+
 /////////////dashBoard///////////
 import EditObitos from '../views/EditObitos'
 import dashboard from '../pages/master/dashboard'
@@ -43,6 +45,11 @@ function AdminAuth(to, from, next){
 
 
 const routes = [
+  {
+    path: '/formteste',
+    name: 'FormDeTeste',
+    component: FormDeTeste
+  }, 
   {
     path: '/home',
     name: 'home',

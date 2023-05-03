@@ -115,7 +115,7 @@
       </div>
     </div>
             <div class="col">
-              <router-link to="/editarobitos"><button type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" >Editar</button></router-link>
+              <router-link to="/editarobitos"><button type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Editar</button></router-link>
           </div>
         </div>
     </form>  
