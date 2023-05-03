@@ -5,7 +5,7 @@
         <div class="my-auto">
           <div class="row">
               <div class="col-lg-4 col-md-8 col-12 mx-auto">
-                  <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                  <div class="mt-n4 mx-3 z-index-2">
                       <div class="bg-gradient-primary shadow-primary border-radius-lg py-3 pe-1">
                           <h4 class="text-white font-weight-bolder text-center mt-2 mb-0">Cadastrar Formulario</h4>
                       </div>           
@@ -20,7 +20,7 @@
           <input type="text" class="form-control" placeholder="Responsavel" aria-label="Responsavel" v-model="nome">
         </div>
         <div class="col">          
-          <select id="ubs" class="form-select" v-model="ubs">
+          <select id="ubs" class="form-select" v-model="Ubs">
             <option>UBS</option>
             <option>Sede I</option>
             <option>Sede II</option>
@@ -98,7 +98,7 @@
           </div>
         </div>
         <div class="text-center">
-          <button @click="cadastrarForm" type="button" class="btn gradient-custom-2 w-40 my-4 mb-2 " >Registrar</button>
+          <button @click="cadastrarObitos" type="button" class="btn gradient-custom-2 w-40 my-4 mb-2 " >Registrar</button>
         </div> 
 
       </form>  
@@ -116,7 +116,7 @@
                     </div>
                     <div v-if="deucerto != undefined">
                       <div class="notification is-primary">
-                          <p>{{ msgDeucerto }}</p>  
+                          <p>{{ deucerto }}</p>  
                       </div>
                     </div>
               </div>
@@ -135,60 +135,76 @@
   import axios from 'axios';
   export default {
     data(){
-        return{
-            ubs:"",
-            nome:"",
-            nomedamae:"",
-            idade:0,
-            endereco:"",
-            municipioderesidencia: "",
-            sexo:"",
-            prontuario:0,
-            datadoobito:0,
-            localdoobito:"",
-            Causa:"",
-            error: undefined,
-            deucerto: undefined,
-  
-            
-        }
-    },
-    methods:{
+      return{
+          Ubs: '', // define a primeira opção do array como selecionada
+          users: [],
+          Responsavel:"",
+          nome:"",
+          nomedamae:"",
+          idade:0,
+          endereco:"",
+          municipioderesidencia: "",
+          sexo:"",
+          prontuario:0,
+          datadoobito:0,
+          localdoobito:"",
+          Causa:"",
+          error: undefined,
+          deucerto: undefined,
+
+          
+      }
+  },
+  methods:{
+
+
+      
+    cadastrarObitos(){
+      axios.post("https://api.sheetmonkey.io/form/rDdq3FY1DM1TtTNg6sz1j7",
+      
+      
+      {
         
-      cadastrarForm(){
-        axios.post("https://api.sheetmonkey.io/form/rDdq3FY1DM1TtTNg6sz1j7",
-        
-        {
-            ubs: this.ubs,
-            nome: this.nome,
-            nomedamae: this.nomedamae,
-            idade: this.idade,
-            endereco: this.endereco,
-            municipioderesidencia:this.municipioderesidencia,
-            sexo: this.sexo, 
-            prontuario: this.prontuario,
-            datadoobito: this.datadoobito,
-            localdoobito: this.localdoobito,
-            Causa: this.Causa,
-  
-            
-            
-        }).then(res =>{
-            console.log(res);
-            this.$router.push({name: 'Formteste'});
-         
-        }).catch(err =>{
-          console.log(err.response);
-            var msgErro = err.response.data.err;
-            this.error = msgErro;
-        })
+          responsavel: this.Responsavel,
+          ubs: this.Ubs,
+          nome: this.nome,
+          nomedamae: this.nomedamae,
+          idade: this.idade,
+          endereco: this.endereco,
+          municipioderesidencia:this.municipioderesidencia,
+          sexo: this.sexo, 
+          prontuario: this.prontuario,
+          datadoobito: this.datadoobito,
+          localdoobito: this.localdoobito,
+          Causa: this.Causa,
+
+          
+          
+      }).then(res =>{
+          console.log(res)    
+          var msgDeucerto = res.statusText;
+          this.deucerto = msgDeucerto;
+          this.$router.push({name: 'FormDeTeste'});
        
-    }
-  
-    }
+        }).catch(err => {
+                if (err.response) {
+                    var msgErro = err.response.data.err;
+                    this.error = msgErro;
+                }else{
+                    console.log(err);
+                    this.error = "Erro ao processar a solicitação";
+                }
+            })
+     
+  }
+
+  },
+  components(){
   
   }
-  </script>
+
+}
+</script>
   
   <style scoped>
 
