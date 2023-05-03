@@ -97,8 +97,11 @@
         </div>
       </div>
       <div class="row g-3">
-          <div class="col">
-            <button  @click="cadastrarObitos" type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" >Cadastrar</button>
+          <div class="text-center">
+            <button @click="cadastrarObitos" type="button" class="btn gradient-custom-2 w-40 my-4 mb-2 ">Cadastrar Obito</button>
+          </div> 
+          <div class="text-center">
+            <router-link to="/editarobitos"><button  type="button" class="btn gradient-custom-2 w-40 my-4 mb-2 ">Editar Obito</button></router-link>
           </div>
           <div class="col-lg-4 col-md-8 col-12 mx-auto">
       <div class="text-center">
@@ -114,9 +117,9 @@
             </div>
       </div>
     </div>
-            <div class="col">
-              <router-link to="/editarobitos"><button type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Editar</button></router-link>
-          </div>
+         
+
+
         </div>
     </form>  
     <br>
@@ -230,7 +233,16 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.gradient-custom-2 {
+/* fallback for old browsers */
+background: #fccb90;
+color:#fff;
 
+/* Chrome 10-25, Safari 5.1-6 */
+background: -webkit-linear-gradient(195deg, #101cc2 0%, #D81B60 100%);
+/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+background: linear-gradient(195deg, #101cc2 0%, #D81B60 100%);
+}
 </style>
 

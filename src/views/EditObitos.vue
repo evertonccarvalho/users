@@ -5,7 +5,7 @@
         <div class="my-auto">
           <div class="row">
               <div class="col-lg-4 col-md-8 col-12 mx-auto">
-                  <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                  <div class="position-relative mt-n4 mx-3 z-index-2">
                       <div class="bg-gradient-primary shadow-primary border-radius-lg py-3 pe-1">
                           <h4 class="text-white font-weight-bolder text-center mt-2 mb-0">Editando Óbitos</h4>
                       </div>           
@@ -110,13 +110,16 @@
               </div>
               <div v-if="deucerto != undefined">
                 <div class="notification is-primary">
-                    <p>{{ msgDeucerto }}</p>  
+                    <p>{{deucerto }}</p>  
                 </div>
               </div>
           
+
+            <div class="text-center">
+            <button @click="update" type="button" class="btn gradient-custom-2 w-40 my-4 mb-2 ">Atualizar Obito</button>
+          </div>     
          
-         <button  type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" @click="update">Atualizar</button>
-          
+         
         </div>
       </div>
 
@@ -208,10 +211,19 @@ export default {
 
         },req).then(res =>{
             console.log(res);
-            this.$router.push({name: 'Users'});
+            var msgDeucerto = res.request.responseText;
+            this.deucerto = msgDeucerto;
+            this.$router.push({name: 'obitos'});
+
+            
         }).catch(err =>{
-            var msgErro = err.response.data.err;
-            this.error = msgErro;
+          if (err.response) {
+              var msgErro = err.response.data.err;
+              this.error = msgErro;
+          } else {
+              console.log(err);
+              this.error = "Erro ao processar a solicitação";
+          }
         })
        
     }
@@ -221,6 +233,15 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.gradient-custom-2 {
+/* fallback for old browsers */
+background: #fccb90;
+color:#fff;
 
+/* Chrome 10-25, Safari 5.1-6 */
+background: -webkit-linear-gradient(195deg, #101cc2 0%, #D81B60 100%);
+/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+background: linear-gradient(195deg, #101cc2 0%, #D81B60 100%);
+}
 </style>

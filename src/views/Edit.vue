@@ -149,6 +149,9 @@ export default {
             },req).then(res =>{
                 console.log(res);
                 this.$router.push({name: 'adminpainel'});
+
+
+                
             }).catch(err => {
                 if (err.response) {
                     var msgErro = err.response.data.err;

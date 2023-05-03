@@ -97,6 +97,8 @@
   
           </div>
         </div>
+
+        
         <div class="text-center">
           <button @click="cadastrarObitos" type="button" class="btn gradient-custom-2 w-40 my-4 mb-2 " >Registrar</button>
         </div> 
