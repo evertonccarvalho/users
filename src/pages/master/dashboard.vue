@@ -120,17 +120,24 @@
             </div>
             <!-- User login -->
             <div class="w-[200px]">
-              <div>
+              <div
+                class="flex items-center justify-start space-x-4"
+                @click="toggleDrop"
+              >
+                <img
+                  class="w-10 h-10 rounded-full border-2 border-gray-50"
+                  src=""
+                  alt=""
+                />
                 <div
                   class="font-semibold dark:text-dark text-left"
                   v-if="loggedInUser"
                 >
                   <div>{{ loggedInUser.name }}</div>
                   <div class="text-xs text-gray-500 dark:text-gray-400">
-                    {{ loggedInUser.email }}
+                    {{ loggedInUser.role }}
                   </div>
                 </div>
-                <div v-else>Usuário não encontrado</div>
               </div>
               <!-- Drop down -->
               <div
@@ -184,31 +191,12 @@
 import axios from "axios";
 
 export default {
-  mounted() {
-    var req = {
-      headers: {
-        Authorization: "Bearer " + localStorage.getItem("token"),
-      },
-    };
-
-    axios
-      .get("http://localhost:8686/user", req)
-      .then((res) => {
-        console.log(res);
-        this.users = res.data;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    console.log("usuários encontrados");
-  },
-
   created() {
-    var token = localStorage.getItem("token");
-    if (token) {
+    var email = localStorage.getItem("email");
+    if (email) {
       var req = {
         headers: {
-          Authorization: "Bearer " + token,
+          Authorization: "Bearer " + localStorage.getItem("token"),
         },
       };
 
@@ -216,8 +204,9 @@ export default {
         .get("http://localhost:8686/user", req)
         .then((res) => {
           console.log(res);
-          if (res.data.length > 0) {
-            this.loggedInUser = res.data[0];
+          const user = res.data.find((u) => u.email === email);
+          if (user) {
+            this.loggedInUser = user;
             console.log("Usuário logado:", this.loggedInUser);
           } else {
             console.log("Usuário não encontrado");
@@ -248,6 +237,7 @@ export default {
     },
     logout() {
       localStorage.removeItem("token");
+      localStorage.removeItem("email");
     },
   },
 };
