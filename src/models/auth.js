@@ -11,7 +11,7 @@ export function fetchLoggedInUser() {
 
     return axios.get("http://localhost:8686/user", req).then((res) => {
       console.log(res);
-      const user = res.data.find((u) => u.email === email);
+      const user = res.data.find((user) => user.email === email);
       if (user) {
         return user;
       } else {

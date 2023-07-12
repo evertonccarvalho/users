@@ -188,34 +188,18 @@
   </div>
 </template>
 <script>
-import axios from "axios";
+import { fetchLoggedInUser } from "@/models/auth.js";
 
 export default {
   created() {
-    var email = localStorage.getItem("email");
-    if (email) {
-      var req = {
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("token"),
-        },
-      };
-
-      axios
-        .get("http://localhost:8686/user", req)
-        .then((res) => {
-          console.log(res);
-          const user = res.data.find((u) => u.email === email);
-          if (user) {
-            this.loggedInUser = user;
-            console.log("Usuário logado:", this.loggedInUser);
-          } else {
-            console.log("Usuário não encontrado");
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
+    fetchLoggedInUser()
+      .then((user) => {
+        this.loggedInUser = user;
+        console.log("Usuário logado:", this.loggedInUser);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   },
 
   data() {

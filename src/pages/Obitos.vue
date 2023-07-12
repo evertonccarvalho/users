@@ -21,16 +21,16 @@
       <form id="formulario" class="row g-3">
         <div class="col">
           <select id="ubs" class="form-select" v-model="Responsavel">
-            <option v-for="resp in users" :key="resp.id">
-              {{ resp.name }}
+            <option v-if="loggedInUser">
+              {{ loggedInUser.name }}
             </option>
           </select>
         </div>
 
         <div class="col">
           <select id="ubs" class="form-select" v-model="Ubs">
-            <option v-for="resp in users" :key="resp.id" selected>
-              {{ resp.ubs }}
+            <option v-if="loggedInUser" selected>
+              {{ loggedInUser.ubs }}
             </option>
           </select>
         </div>
@@ -195,30 +195,24 @@
 <script>
 import axios from "axios";
 
+import { fetchLoggedInUser } from "@/models/auth.js";
+
 export default {
   created() {
-    var req = {
-      headers: {
-        Authorization: "Bearer " + localStorage.getItem("token"),
-      },
-    };
-
-    axios
-      .get("http://localhost:8686/user", req)
-      .then((res) => {
-        console.log(res);
-        this.users = res.data;
+    fetchLoggedInUser()
+      .then((user) => {
+        this.loggedInUser = user;
+        console.log("Usuário logado:", this.loggedInUser);
       })
       .catch((err) => {
         console.log(err);
       });
-    console.log("usuarios em obitos");
   },
 
   data() {
     return {
       Ubs: "", // define a primeira opção do array como selecionada
-      users: [],
+      loggedInUser: null,
       Responsavel: "",
       nome: "",
       nomedamae: "",
