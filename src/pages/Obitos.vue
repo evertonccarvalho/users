@@ -21,8 +21,8 @@
       <form id="formulario" class="row g-3">
         <div class="col">
           <select id="ubs" class="form-select" v-model="Responsavel">
-            <option v-if="loggedInUser" :value="loggedInUser.name">
-              {{ loggedInUser.name }}
+            <option v-for="resp in users" :key="resp.id">
+              {{ resp.name }}
             </option>
           </select>
         </div>
@@ -30,7 +30,7 @@
         <div class="col">
           <select id="ubs" class="form-select" v-model="Ubs">
             <option v-for="resp in users" :key="resp.id" selected>
-              {{ loggedInUser.name }}
+              {{ resp.ubs }}
             </option>
           </select>
         </div>
