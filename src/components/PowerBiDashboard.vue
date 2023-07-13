@@ -1,12 +1,24 @@
 <template>
   <div id="app">
-    <section id="container" style="height: 85vh" />
+    <!-- <section id="container" style="height: 85vh" /> -->
   </div>
+
+  <section id="container" style="height: 85vh">
+    <iframe
+      title="Dashboard"
+      width="100%;"
+      height="100%;"
+      src="https://app.powerbi.com/view?r=eyJrIjoiYmIxNDJjODYtOTYxMC00MmZjLWE4YWYtMDUwMDdhNDhiODI5IiwidCI6IjI2NzNhNGYwLWQ2Y2EtNGNhZi1hNzYxLTk3NzIyNjdkNGUwNCJ9"
+      frameborder="0"
+      allowFullScreen="true"
+    ></iframe>
+  </section>
 </template>
 <!-- 
 www.nightprogrammer.com
 -->
-
+<!-- 
+<script>
 <script>
 import * as pbi from "powerbi-client";
 
@@ -72,7 +84,7 @@ export default {
     });
   },
 };
-</script>
+</script> -->
 
 <style>
 #app {
@@ -81,6 +93,5 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #000000;
-
 }
 </style>

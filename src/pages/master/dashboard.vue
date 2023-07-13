@@ -95,6 +95,7 @@
           </div>
         </div>
       </div>
+      <!-- Side bar -->
       <div class="w-full h-full bg-gray-400">
         <div
           class="h-[50px] bg-gray-100 flex items-center shadow-sm px-[20px] w-full py-[10px] z-10 border-b"
@@ -135,7 +136,7 @@
                 >
                   <div>{{ loggedInUser.name }}</div>
                   <div class="text-xs text-gray-500 dark:text-gray-400">
-                    {{ loggedInUser.role }}
+                    {{ loggedInUser.email }}
                   </div>
                 </div>
               </div>
@@ -148,16 +149,23 @@
                 aria-labelledby="menu-button"
                 tabindex="-1"
               >
-                <div class="py-1 text-left" role="none">
+                <div v-if="loggedInUser" class="py-1 text-left" role="none">
                   <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
-                  <a
-                    href="#"
-                    class="text-gray-700 block px-4 py-2 text-sm"
-                    role="menuitem"
-                    tabindex="-1"
-                    id="menu-item-0"
-                    >Configurações</a
+                  <router-link
+                    v-if="loggedInUser"
+                    :to="{ name: 'UserEdit', params: { id: loggedInUser.id } }"
                   >
+                    <a
+                      href="#"
+                      class="text-gray-700 block px-4 py-2 text-sm"
+                      role="menuitem"
+                      tabindex="-1"
+                      id="menu-item-0"
+                      @click="update"
+                      >Configurações</a
+                    ></router-link
+                  >
+
                   <form method="POST" action="#" role="none">
                     <router-link to="/"
                       ><button
@@ -189,9 +197,26 @@
 </template>
 <script>
 import { fetchLoggedInUser } from "@/models/auth.js";
-
+import axios from "axios";
 export default {
   created() {
+    var req = {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    };
+
+    axios
+      .get("http://localhost:8686/user", req)
+      .then((res) => {
+        console.log(res);
+        this.users = res.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    console.log("ola");
+
     fetchLoggedInUser()
       .then((user) => {
         this.loggedInUser = user;
@@ -204,6 +229,7 @@ export default {
 
   data() {
     return {
+      user: [],
       loggedInUser: null,
       showDropDown: false,
       showSide: true,
@@ -227,4 +253,4 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="stylus" scoped></style>

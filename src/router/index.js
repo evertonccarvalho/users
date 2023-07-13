@@ -10,7 +10,7 @@ import PowerBiDashboard from "../components/PowerBiDashboard.vue";
 import home from "../views/Home";
 
 import FormDeTeste from "../components/FormDeTeste.vue";
-
+import profile from "../pages/master/profile.vue";
 /////////////dashBoard///////////
 import EditObitos from "../views/EditObitos";
 import dashboard from "../pages/master/dashboard";
@@ -43,6 +43,12 @@ function AdminAuth(to, from, next) {
 }
 
 const routes = [
+  {
+    path: "/profile",
+    name: "profile",
+    component: profile,
+    beforeEnter: AdminAuth,
+  },
   {
     path: "/formteste",
     name: "FormDeTeste",

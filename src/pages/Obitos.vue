@@ -20,19 +20,30 @@
       <br />
       <form id="formulario" class="row g-3">
         <div class="col">
-          <select id="ubs" class="form-select" v-model="Responsavel">
-            <option v-if="loggedInUser">
-              {{ loggedInUser.name }}
-            </option>
-          </select>
+          <label>Responsavel</label>
+          <input
+            v-if="loggedInUser"
+            id="user"
+            class="form-control"
+            type="text"
+            placeholder="Responsavel"
+            maxlength="150"
+            readonly
+            v-model="Responsavel"
+          />
         </div>
-
         <div class="col">
-          <select id="ubs" class="form-select" v-model="Ubs">
-            <option v-if="loggedInUser" selected>
-              {{ loggedInUser.ubs }}
-            </option>
-          </select>
+          <label>Unidade Básica de Saúde</label>
+          <input
+            v-if="loggedInUser"
+            id="ubs"
+            class="form-control"
+            type="text"
+            placeholder="UBS"
+            maxlength="150"
+            readonly
+            v-model="Ubs"
+          />
         </div>
         <div class="row g-3">
           <div class="col">
@@ -151,8 +162,22 @@
             />
           </div>
         </div>
-        <div class="row g-3">
+        <div class="col-lg-4 col-md-8 col-12 mx-auto">
           <div class="text-center">
+            <div v-if="error != undefined">
+              <div class="notification is-danger">
+                <p>{{ error }}</p>
+              </div>
+            </div>
+            <div v-if="deucerto != undefined">
+              <div class="notification is-primary">
+                <p>{{ deucerto }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row g-2">
+          <div class="col">
             <button
               @click="cadastrarObitos"
               type="button"
@@ -161,7 +186,7 @@
               Cadastrar Obito
             </button>
           </div>
-          <div class="text-center">
+          <div class="col">
             <router-link to="/editarobitos"
               ><button
                 type="button"
@@ -170,20 +195,6 @@
                 Editar Obito
               </button></router-link
             >
-          </div>
-          <div class="col-lg-4 col-md-8 col-12 mx-auto">
-            <div class="text-center">
-              <div v-if="error != undefined">
-                <div class="notification is-danger">
-                  <p>{{ error }}</p>
-                </div>
-              </div>
-              <div v-if="deucerto != undefined">
-                <div class="notification is-primary">
-                  <p>{{ deucerto }}</p>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </form>
@@ -203,6 +214,11 @@ export default {
       .then((user) => {
         this.loggedInUser = user;
         console.log("Usuário logado:", this.loggedInUser);
+        // Recupera os dados do usuário logado e define os valores iniciais de Responsavel e Ubs
+        if (this.loggedInUser) {
+          this.Responsavel = this.loggedInUser.name;
+          this.Ubs = this.loggedInUser.ubs;
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -211,7 +227,7 @@ export default {
 
   data() {
     return {
-      Ubs: "", // define a primeira opção do array como selecionada
+      Ubs: "",
       loggedInUser: null,
       Responsavel: "",
       nome: "",
@@ -230,29 +246,62 @@ export default {
   },
   methods: {
     cadastrarObitos() {
-      axios
-        .post(
-          "http://localhost:8686/obitos",
+      // Verificar se todos os campos obrigatórios foram preenchidos
+      if (
+        !this.nome ||
+        !this.nomedamae ||
+        this.idade === 0 ||
+        !this.endereco ||
+        !this.municipioderesidencia ||
+        !this.sexo ||
+        this.prontuario === 0 ||
+        this.datadoobito === 0 ||
+        !this.localdoobito ||
+        !this.Causa
+      ) {
+        this.error = "Por favor, preencha todos os campos obrigatórios";
+        return;
+      }
+      // Confirmar antes de salvar
+      if (!confirm("Deseja salvar os dados?")) {
+        return;
+      }
 
-          {
-            responsavel: this.Responsavel,
-            ubs: this.Ubs,
-            nome: this.nome,
-            nomedamae: this.nomedamae,
-            idade: this.idade,
-            endereco: this.endereco,
-            municipioderesidencia: this.municipioderesidencia,
-            sexo: this.sexo,
-            prontuario: this.prontuario,
-            datadoobito: this.datadoobito,
-            localdoobito: this.localdoobito,
-            Causa: this.Causa,
-          }
-        )
+      // Enviar o formulário apenas se todos os campos obrigatórios estiverem preenchidos
+      axios
+        .post("http://localhost:8686/obitos", {
+          responsavel: this.loggedInUser.name,
+          ubs: this.loggedInUser.ubs,
+          nome: this.nome,
+          nomedamae: this.nomedamae,
+          idade: this.idade,
+          endereco: this.endereco,
+          municipioderesidencia: this.municipioderesidencia,
+          sexo: this.sexo,
+          prontuario: this.prontuario,
+          datadoobito: this.datadoobito,
+          localdoobito: this.localdoobito,
+          Causa: this.Causa,
+        })
         .then((res) => {
           console.log(res);
           var msgDeucerto = res.request.responseText;
           this.deucerto = msgDeucerto;
+
+          // Limpar apenas os campos desejados
+          const fieldsToClear = {
+            nome: "",
+            nomedamae: "",
+            idade: 0,
+            endereco: "",
+            municipioderesidencia: "",
+            sexo: "",
+            prontuario: 0,
+            datadoobito: 0,
+            localdoobito: "",
+            Causa: "",
+          };
+          Object.assign(this, fieldsToClear);
         })
         .catch((err) => {
           if (err.response) {
