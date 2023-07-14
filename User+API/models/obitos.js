@@ -1,4 +1,4 @@
-var knex = require("../database/connection");
+const knex = require("../database/connection");
 
 class Obitos {
   async obitos(
@@ -13,52 +13,46 @@ class Obitos {
     prontuario,
     datadoobito,
     localdoobito,
-    Causa
+    causa
   ) {
     try {
-      await knex
-        .insert({
-          ubs,
-          responsavel,
-          nome,
-          nomedamae,
-          idade,
-          endereco,
-          municipioderesidencia,
-          sexo,
-          prontuario,
-          datadoobito,
-          localdoobito,
-          Causa,
-        })
-        .table("obitos");
+      await knex("obitos").insert({
+        responsavel,
+        ubs,
+        nome,
+        nomedamae,
+        idade,
+        endereco,
+        municipioderesidencia,
+        sexo,
+        prontuario,
+        datadoobito,
+        localdoobito,
+        causa,
+      });
     } catch (err) {
       console.log(err);
       return undefined;
     }
   }
 
-  /////////////////////////////////encontrar formulario/////////////////
-
   async findFormAll() {
     try {
-      var result = await knex
-        .select([
-          "responsavel",
-          "id",
-          "ubs",
-          "nome",
-          "nomedamae",
-          "idade",
-          "endereco",
-          "municipioderesidencia",
-          "sexo",
-          "prontuario",
-          "datadoobito",
-          "localdoobito",
-          "Causa",
-        ])
-        .table("obitos");
+      const result = await knex("obitos").select([
+        "responsavel",
+        "id",
+        "ubs",
+        "nome",
+        "nomedamae",
+        "idade",
+        "endereco",
+        "municipioderesidencia",
+        "sexo",
+        "prontuario",
+        "datadoobito",
+        "localdoobito",
+        "causa",
+      ]);
       return result;
     } catch (err) {
       console.log(err);
@@ -68,7 +62,7 @@ class Obitos {
 
   async findFormById(id) {
     try {
-      var result = await knex
+      const result = await knex("obitos")
         .select([
           "responsavel",
           "id",
@@ -82,25 +76,21 @@ class Obitos {
           "prontuario",
           "datadoobito",
           "localdoobito",
-          "Causa",
+          "causa",
         ])
-        .where({ id: id })
-        .table("obitos");
+        .where({ id })
+        .first();
 
-      if (result.length > 0) {
-        return result[0];
-      } else {
-        return undefined;
-      }
+      return result || undefined;
     } catch (err) {
       console.log(err);
       return undefined;
     }
   }
-  ///////////////////edtiar formularlio encontraro /////////////////
+
   async findFormByNome(nome) {
     try {
-      var result = await knex
+      const result = await knex("obitos")
         .select([
           "responsavel",
           "id",
@@ -114,38 +104,28 @@ class Obitos {
           "prontuario",
           "datadoobito",
           "localdoobito",
-          "Causa",
+          "causa",
         ])
-        .where({ nome: nome })
-        .table("obitos");
+        .where({ nome })
+        .first();
 
-      if (result.length > 0) {
-        return result[0];
-      } else {
-        return undefined;
-      }
+      return result || undefined;
     } catch (err) {
       console.log(err);
       return undefined;
     }
   }
-  /////////////////////
+
   async findFormNome(nome) {
     try {
-      var result = await knex.select("*").table("obitos").where({ nome: nome });
+      const result = await knex("obitos").select("*").where({ nome }).first();
 
-      if (result.length > 0) {
-        return true;
-      } else {
-        return false;
-      }
+      return result !== undefined;
     } catch (err) {
       console.log(err);
       return false;
     }
   }
-
-  /////////////////////////
 
   async updateObitos(
     responsavel,
@@ -160,84 +140,59 @@ class Obitos {
     prontuario,
     datadoobito,
     localdoobito,
-    Causa
+    causa
   ) {
-    var obito = await this.findFormById(id);
+    const obito = await this.findFormById(id);
 
-    if (obito != undefined) {
-      var editObito = {};
+    if (obito) {
+      const editObito = {};
 
-      if (nome != undefined) {
-        if (nome != obito.nome) {
-          var result = await this.findFormNome(nome);
-          if (result == false) {
-            editObito.nome = nome;
-          } else {
-            return { status: false, err: "Falecido ja Morreu" };
-          }
+      if (nome && nome !== obito.nome) {
+        const result = await this.findFormNome(nome);
+        if (!result) {
+          editObito.nome = nome;
+        } else {
+          return { status: false, err: "Falecido já morreu." };
         }
       }
 
-      if (nome != undefined) {
-        editObito.nome = nome;
-      }
-      if (ubs != undefined) {
-        editObito.ubs = ubs;
-      }
-      if (nomedamae != undefined) {
-        editObito.nomedamae = nomedamae;
-      }
-      if (idade != undefined) {
-        editObito.idade = idade;
-      }
-      if (endereco != undefined) {
-        editObito.endereco = endereco;
-      }
-      if (municipioderesidencia != undefined) {
+      if (ubs) editObito.ubs = ubs;
+      if (nomedamae) editObito.nomedamae = nomedamae;
+      if (idade) editObito.idade = idade;
+      if (endereco) editObito.endereco = endereco;
+      if (municipioderesidencia)
         editObito.municipioderesidencia = municipioderesidencia;
-      }
-      if (sexo != undefined) {
-        editObito.sexo = sexo;
-      }
-      if (prontuario != undefined) {
-        editObito.prontuario = prontuario;
-      }
-      if (datadoobito != undefined) {
-        editObito.datadoobito = datadoobito;
-      }
-      if (localdoobito != undefined) {
-        editObito.localdoobito = localdoobito;
-      }
-      if (Causa != undefined) {
-        editObito.Causa = Causa;
-      }
-      if (responsavel != undefined) {
-        editObito.Causa = responsavel;
-      }
+      if (sexo) editObito.sexo = sexo;
+      if (prontuario) editObito.prontuario = prontuario;
+      if (datadoobito) editObito.datadoobito = datadoobito;
+      if (localdoobito) editObito.localdoobito = localdoobito;
+      if (causa) editObito.causa = causa;
+      if (responsavel) editObito.responsavel = responsavel;
+
       try {
-        await knex.update(editObito).where({ id: id }).table("obitos");
+        await knex("obitos").update(editObito).where({ id });
         return { status: true };
       } catch (err) {
-        return { status: false, err: err };
+        return { status: false, err };
       }
     } else {
-      return { status: false, err: "O Formulario Não EXISTE" };
+      return { status: false, err: "O formulário não existe." };
     }
   }
 
   async deleteObito(id) {
-    var user = await this.findFormById(id);
-    if (user != undefined) {
+    const obito = await this.findFormById(id);
+    if (obito) {
       try {
-        await knex.delete().where({ id: id }).table("obitos");
+        await knex("obitos").delete().where({ id });
         return { status: true };
       } catch (err) {
-        return { status: false, err: err };
+        return { status: false, err };
       }
     } else {
       return {
         status: false,
-        err: "O usuário não existe, portanto não pode ser deletado.",
+        err: "O formulário não existe e, portanto, não pode ser deletado.",
       };
     }
   }

@@ -249,7 +249,7 @@ export default {
           console.log(res);
           var msgDeucerto = res.request.responseText;
           this.deucerto = msgDeucerto;
-          this.$router.push({ name: "editarObitos" });
+          this.$router.push({ name: "ListaObitos" });
         })
         .catch((err) => {
           if (err.response) {
