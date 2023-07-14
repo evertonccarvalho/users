@@ -10,13 +10,14 @@ import PowerBiDashboard from "../components/PowerBiDashboard.vue";
 import home from "../views/Home";
 
 import FormDeTeste from "../components/FormDeTeste.vue";
-import profile from "../pages/master/profile.vue";
+import profile from "../components/profile.vue";
+
 /////////////dashBoard///////////
 import EditObitos from "../views/EditObitos";
-import dashboard from "../pages/master/dashboard";
-import adminpainel from "../pages/adminpainel";
-import editarObitos from "../pages/editarObitos";
-import Obitos from "../pages/Obitos";
+import dashboard from "../views/dashboard";
+import adminpainel from "../components/adminpainel";
+import ListaObitos from "../components/ListaObitos";
+import Obitos from "../components/Obitos";
 
 //////////////////////////////
 
@@ -44,6 +45,11 @@ function AdminAuth(to, from, next) {
 
 const routes = [
   {
+    path: "/",
+    name: "home",
+    component: home,
+  },
+  {
     path: "/profile",
     name: "profile",
     component: profile,
@@ -54,18 +60,14 @@ const routes = [
     name: "FormDeTeste",
     component: FormDeTeste,
   },
-  {
-    path: "/home",
-    name: "home",
-    component: home,
-  },
+
   {
     path: "/register",
     name: "register",
     component: register,
   },
   {
-    path: "/",
+    path: "/login",
     name: "Login",
     component: Login,
   },
@@ -92,9 +94,9 @@ const routes = [
         component: Obitos,
       },
       {
-        name: "editarObitos",
-        path: "/editarObitos",
-        component: editarObitos,
+        name: "ListaObitos",
+        path: "/ListaObitos",
+        component: ListaObitos,
       },
       {
         path: "/admin/users/editObitos/:id",

@@ -1,5 +1,5 @@
-<!-- <template>
-  <div class="w-[400px] h-full bg-gray-200 text-white" :v-show="showSide">
+<template>
+  <div class="w-[400px] h-full bg-gray-200 text-white" v-show="{ showSide }">
     <div class="h-[50px] bg-gray-900 flex justify-start items-center">
       <div class="px-[20px]">
         <h3 class="font-bold text-xl">Admin Dashboard</h3>
@@ -120,4 +120,4 @@ export default {
     },
   },
 };
-</script> -->
+</script>
