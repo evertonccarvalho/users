@@ -93,6 +93,10 @@ class User {
         editUser.ubs = ubs;
       }
 
+      if (profilePicture) {
+        editUser.profilePicture = profilePicture;
+      }
+
       try {
         await knex.transaction(async (trx) => {
           await trx("users").update(editUser).where({ id });

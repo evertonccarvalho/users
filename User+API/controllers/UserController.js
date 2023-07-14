@@ -1,9 +1,9 @@
 const User = require("../models/User");
 const PasswordToken = require("../models/PasswordToken");
 
-var jwt = require("jsonwebtoken");
-
-var secret = "adsuasgdhjasgdhjdgahjsg12hj3eg12hj3g12hj3g12hj3g123";
+// var jwt = require("jsonwebtoken");
+// // var secret = process.env.JWT_SECRET; // Chave secreta JWT definida como variável de ambiente
+// var secret = "adsuasgdhjasgdhjdgahjsg12hj3eg12hj3g12hj3g12hj3g123"; // Chave secreta JWT definida diretamente no código
 
 var bcrypt = require("bcrypt");
 const { default: knex } = require("knex");
