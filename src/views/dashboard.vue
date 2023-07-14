@@ -127,7 +127,7 @@
               >
                 <img
                   class="w-10 h-10 rounded-full border-2 border-gray-50"
-                  src=""
+                  src="../assets/Avatar.png"
                   alt=""
                 />
                 <div
