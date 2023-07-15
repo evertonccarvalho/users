@@ -18,10 +18,9 @@ class User {
   async findById(id) {
     try {
       const result = await knex
-        .select(["id", "email", "role", "name", "ubs"])
-        .where({ id })
+        .select(["id", "email", "role", "name", "ubs", "profilePicture"])
+        .where({ id: id })
         .table("users");
-
       return result[0] || undefined;
     } catch (err) {
       throw new Error(err);

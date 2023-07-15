@@ -1,14 +1,53 @@
 const User = require("../models/User");
 const PasswordToken = require("../models/PasswordToken");
-
-// var jwt = require("jsonwebtoken");
-// // var secret = process.env.JWT_SECRET; // Chave secreta JWT definida como variável de ambiente
-// var secret = "adsuasgdhjasgdhjdgahjsg12hj3eg12hj3g12hj3g12hj3g123"; // Chave secreta JWT definida diretamente no código
-
 var bcrypt = require("bcrypt");
-const { default: knex } = require("knex");
+
+var jwt = require("jsonwebtoken");
+// var secret = process.env.JWT_SECRET; // Chave secreta JWT definida como variável de ambiente
+var secret = "adsuasgdhjasgdhjdgahjsg12hj3eg12hj3g12hj3g12hj3g123"; // Chave secreta JWT definida diretamente no código
+
+const multer = require("multer");
 
 class UserController {
+  // Configurar o multer para salvar os arquivos na pasta "uploads"
+  constructor() {
+    const storage = multer.diskStorage({
+      destination: function (req, file, cb) {
+        cb(null, "uploads/");
+      },
+      filename: function (req, file, cb) {
+        cb(null, Date.now() + "-" + file.originalname);
+      },
+    });
+
+    this.upload = multer({ storage: storage });
+  }
+
+  async edit(req, res) {
+    var { id, name, role, email, ubs, profilePicture } = req.body;
+
+    // Verifique se a imagem de perfil foi enviada pelo cliente
+    if (req.file) {
+      var profilePicture = req.file.filename;
+    } else {
+      var profilePicture = undefined;
+    }
+
+    var result = await User.update(id, email, name, role, ubs, profilePicture);
+    if (result != undefined) {
+      if (result.status) {
+        res.status(200);
+        res.send("Tudo OK!");
+      } else {
+        res.status(406);
+        res.send(result.err);
+      }
+    } else {
+      res.status(406);
+      res.send("Ocorreu um erro no servidor!");
+    }
+  }
+  //////nao modificado apartir daqui ///
   async index(req, res) {
     var users = await User.findAll();
     res.json(users);
@@ -47,23 +86,6 @@ class UserController {
 
     res.status(200);
     res.send("Tudo OK!");
-  }
-
-  async edit(req, res) {
-    var { id, name, role, email, ubs, profilePicture } = req.body;
-    var result = await User.update(id, email, name, role, ubs, profilePicture);
-    if (result != undefined) {
-      if (result.status) {
-        res.status(200);
-        res.send("Tudo OK!");
-      } else {
-        res.status(406);
-        res.send(result.err);
-      }
-    } else {
-      res.status(406);
-      res.send("Ocorreu um erro no servidor!");
-    }
   }
 
   async remove(req, res) {

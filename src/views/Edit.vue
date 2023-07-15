@@ -106,12 +106,19 @@
               >
                 <div class="mx-left" style="width: 400px">
                   <img
+                    v-if="profilePicture"
+                    :src="URL.createObjectURL(profilePicture)"
+                    class="avatar img-circle img-thumbnail"
+                    alt="avatar"
+                  />
+                  <img
+                    v-else
                     src="https://bootdey.com/img/Content/avatar/avatar7.png"
                     class="avatar img-circle img-thumbnail"
                     alt="avatar"
                   />
                   <h6>Upload nova foto</h6>
-                  <input type="file" class="form-control" />
+                  <input type="file" @change="onProfilePictureChange" />
                 </div>
               </div>
             </div>
@@ -154,28 +161,32 @@ export default {
       email: "",
       role: 0,
       ubs: "",
+      profilePicture: null, // Adicione esta propriedade
       error: undefined,
     };
   },
   methods: {
+    onProfilePictureChange(event) {
+      this.profilePicture = event.target.files[0];
+    },
     update() {
       var req = {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
       };
+
+      var formData = new FormData();
+      formData.append("name", this.name);
+      formData.append("email", this.email);
+      formData.append("role", this.role);
+      formData.append("id", this.id);
+      formData.append("ubs", this.ubs);
+      formData.append("profilePicture", this.profilePicture); // Adicione esta linha
+
       axios
-        .put(
-          "http://localhost:8686/user",
-          {
-            name: this.name,
-            email: this.email,
-            role: this.role,
-            id: this.id,
-            ubs: this.ubs,
-          },
-          req
-        )
+        .put("http://localhost:8686/user", formData, req)
+
         .then((res) => {
           console.log(res);
           this.$router.push({ name: "adminpainel" });
