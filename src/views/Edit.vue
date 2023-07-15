@@ -105,18 +105,7 @@
                 class="col-lg-6 d-flex align-items-center bg-gradient-primary"
               >
                 <div class="mx-left" style="width: 400px">
-                  <img
-                    v-if="profilePicture"
-                    :src="URL.createObjectURL(profilePicture)"
-                    class="avatar img-circle img-thumbnail"
-                    alt="avatar"
-                  />
-                  <img
-                    v-else
-                    src="https://bootdey.com/img/Content/avatar/avatar7.png"
-                    class="avatar img-circle img-thumbnail"
-                    alt="avatar"
-                  />
+                  <img :src="getProfilePictureUrl()" alt="" />
                   <h6>Upload nova foto</h6>
                   <input type="file" @change="onProfilePictureChange" />
                 </div>
@@ -169,6 +158,15 @@ export default {
     onProfilePictureChange(event) {
       this.profilePicture = event.target.files[0];
     },
+
+    getProfilePictureUrl() {
+      if (this.profilePicture) {
+        return "http://localhost:8686/" + this.profilePicture;
+      } else {
+        console.log("nao achou " + this.profilePicture);
+      }
+    },
+
     update() {
       var req = {
         headers: {

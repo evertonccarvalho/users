@@ -6,7 +6,7 @@ class User {
   async findAll() {
     try {
       const result = await knex
-        .select(["id", "email", "role", "name", "ubs"])
+        .select(["id", "email", "role", "name", "ubs", "profilePicture"])
         .table("users");
       return result;
     } catch (err) {
@@ -31,7 +31,15 @@ class User {
   async findByEmail(email) {
     try {
       const result = await knex
-        .select(["id", "email", "password", "role", "name", "ubs"])
+        .select([
+          "id",
+          "email",
+          "password",
+          "role",
+          "name",
+          "ubs",
+          "profilePicture",
+        ])
         .where({ email })
         .table("users");
 

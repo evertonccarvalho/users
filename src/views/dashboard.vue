@@ -13,6 +13,70 @@
             class="flex flex-col justify-between h-full px-[20px] space-y-[10px]"
           >
             <div class="flex flex-col justify-between space-y-[10px]">
+              <div class="w-[200px]">
+                <div
+                  v-if="loggedInUser"
+                  class="flex items-center justify-start space-x-4"
+                  @click="toggleDrop"
+                >
+                  <img
+                    class="w-10 h-10 rounded-full border-2 border-gray-50"
+                    :src="loggedInUser.profilePictureUrl"
+                    alt=""
+                  />
+                  <div class="font-semibold dark:text-dark text-left">
+                    <div>{{ loggedInUser.name }}</div>
+                    <div class="text-xs text-gray-500 dark:text-gray-400">
+                      {{ loggedInUser.email }}
+                    </div>
+                  </div>
+                </div>
+                <!-- Drop down -->
+                <div
+                  v-show="showDropDown"
+                  class="right-[10px] z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                  role="menu"
+                  aria-orientation="vertical"
+                  aria-labelledby="menu-button"
+                  tabindex="-1"
+                >
+                  <div v-if="loggedInUser" class="py-1 text-left" role="none">
+                    <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
+                    <router-link
+                      v-if="loggedInUser"
+                      :to="{
+                        name: 'UserEdit',
+                        params: { id: loggedInUser.id },
+                      }"
+                    >
+                      <a
+                        href="#"
+                        class="text-gray-700 block px-4 py-2 text-sm"
+                        role="menuitem"
+                        tabindex="-1"
+                        id="menu-item-0"
+                        @click="update"
+                        >Configurações</a
+                      ></router-link
+                    >
+
+                    <form method="POST" action="#" role="none">
+                      <router-link to="/"
+                        ><button
+                          @click="logout"
+                          type="submit"
+                          class="text-gray-700 block w-full px-4 py-2 text-left text-sm"
+                          role="menuitem"
+                          tabindex="-1"
+                          id="menu-item-3"
+                        >
+                          Sair
+                        </button></router-link
+                      >
+                    </form>
+                  </div>
+                </div>
+              </div>
               <router-link
                 to="/powerbi"
                 class="inline-flex relative items-center py-[10px] px-[10px] w-full text-sm font-medium rounded-md border-gray-200 hover:bg-gray-300 hover:text-gray-800 transition duration-400 ease-in-out"
@@ -113,77 +177,7 @@
               />
             </svg>
           </div>
-          <!-- Search bar -->
-
-          <div class="w-[calc(100%-30px)] flex">
-            <div class="w-[calc(100%-200px)] flex justify-center">
-              <!-- Search bar -->
-            </div>
-            <!-- User login -->
-            <div class="w-[200px]">
-              <div
-                class="flex items-center justify-start space-x-4"
-                @click="toggleDrop"
-              >
-                <img
-                  class="w-10 h-10 rounded-full border-2 border-gray-50"
-                  src="../assets/Avatar.png"
-                  alt=""
-                />
-                <div
-                  class="font-semibold dark:text-dark text-left"
-                  v-if="loggedInUser"
-                >
-                  <div>{{ loggedInUser.name }}</div>
-                  <div class="text-xs text-gray-500 dark:text-gray-400">
-                    {{ loggedInUser.email }}
-                  </div>
-                </div>
-              </div>
-              <!-- Drop down -->
-              <div
-                v-show="showDropDown"
-                class="absolute right-[10px] z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
-                role="menu"
-                aria-orientation="vertical"
-                aria-labelledby="menu-button"
-                tabindex="-1"
-              >
-                <div v-if="loggedInUser" class="py-1 text-left" role="none">
-                  <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
-                  <router-link
-                    v-if="loggedInUser"
-                    :to="{ name: 'UserEdit', params: { id: loggedInUser.id } }"
-                  >
-                    <a
-                      href="#"
-                      class="text-gray-700 block px-4 py-2 text-sm"
-                      role="menuitem"
-                      tabindex="-1"
-                      id="menu-item-0"
-                      @click="update"
-                      >Configurações</a
-                    ></router-link
-                  >
-
-                  <form method="POST" action="#" role="none">
-                    <router-link to="/"
-                      ><button
-                        @click="logout"
-                        type="submit"
-                        class="text-gray-700 block w-full px-4 py-2 text-left text-sm"
-                        role="menuitem"
-                        tabindex="-1"
-                        id="menu-item-3"
-                      >
-                        Sair
-                      </button></router-link
-                    >
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
+          <!-- Hambuger menu -->
         </div>
         <div class="h-[calc(100vh-50px)] bg-gray-50 p-[20px]">
           <div class="border border-gray-300 rounded-md p-[20px] h-full">
@@ -191,7 +185,6 @@
           </div>
         </div>
       </div>
-      <!-- Main  -->
     </div>
   </div>
 </template>
@@ -248,6 +241,19 @@ export default {
     logout() {
       localStorage.removeItem("token");
       localStorage.removeItem("email");
+    },
+  },
+
+  computed: {
+    loggedInUserProfilePictureUrl() {
+      if (
+        this.loggedInUser &&
+        this.loggedInUser.loggedInUserProfilePictureUrl
+      ) {
+        return this.loggedInUser.loggedInUserProfilePictureUrl;
+      } else {
+        return "https://bootdey.com/img/Content/avatar/avatar7.png";
+      }
     },
   },
 };

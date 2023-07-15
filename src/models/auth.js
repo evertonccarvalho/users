@@ -13,6 +13,7 @@ export function fetchLoggedInUser() {
       console.log(res);
       const user = res.data.find((user) => user.email === email);
       if (user) {
+        user.profilePictureUrl = "http://localhost:8686/" + user.profilePicture;
         return user;
       } else {
         throw new Error("Usuário não encontrado");

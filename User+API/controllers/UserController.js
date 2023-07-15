@@ -24,13 +24,12 @@ class UserController {
   }
 
   async edit(req, res) {
-    var { id, name, role, email, ubs, profilePicture } = req.body;
+    var { id, name, role, email, ubs } = req.body;
 
     // Verifique se a imagem de perfil foi enviada pelo cliente
+    var profilePicture = undefined;
     if (req.file) {
-      var profilePicture = req.file.filename;
-    } else {
-      var profilePicture = undefined;
+      profilePicture = req.file.filename;
     }
 
     var result = await User.update(id, email, name, role, ubs, profilePicture);
@@ -47,6 +46,7 @@ class UserController {
       res.send("Ocorreu um erro no servidor!");
     }
   }
+
   //////nao modificado apartir daqui ///
   async index(req, res) {
     var users = await User.findAll();
